@@ -1,0 +1,1 @@
+const hanlyFont = 'HanleyPro-Sans';
