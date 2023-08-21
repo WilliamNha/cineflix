@@ -20,7 +20,6 @@ class _CustomWatchNowButtonState extends State<CustomWatchNowButton> {
           setState(() {
             isHovered = onHover;
           });
-          debugPrint('onHover');
         },
         onTap: () {},
         child: Container(
