@@ -1,7 +1,7 @@
 import 'package:cineflix/constants/app_color.dart';
-import 'package:cineflix/constants/app_constants.dart';
 import 'package:cineflix/widgets/global/custom_grid_view_builder.dart';
 import 'package:cineflix/widgets/global/custom_movie_type_selection_button.dart';
+import 'package:cineflix/widgets/global/custom_section_title.dart';
 import 'package:flutter/material.dart';
 
 class RecommendedPartMobile extends StatefulWidget {
@@ -22,34 +22,10 @@ class _RecommendedPartMobileState extends State<RecommendedPartMobile> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 40, bottom: 10),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 12,
-                height: 18,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(2),
-                  color: AppColor.primaryColor,
-                ),
-                child: const Icon(
-                  Icons.play_arrow,
-                  color: Colors.black,
-                  size: 10,
-                ),
-              ),
-              const SizedBox(
-                width: 5,
-              ),
-              const Text(
-                'RECOMMENDED',
-                style: TextStyle(
-                    fontFamily: hanlyFont, fontSize: 20, color: Colors.white),
-              ),
-            ],
+        const Padding(
+          padding: EdgeInsets.only(top: 40, bottom: 10),
+          child: CustomSectionTitle(
+            title: 'RECOMMENDED',
           ),
         ),
         Row(
@@ -85,11 +61,14 @@ class _RecommendedPartMobileState extends State<RecommendedPartMobile> {
         CustomGridViewBuilder(
           childHeight: screenWidth < 480
               ? MediaQuery.of(context).size.width / 1.3
-              : MediaQuery.of(context).size.width / 1.7,
+              : MediaQuery.of(context).size.width / 1.65,
           chilAmountPerRow: screenWidth < 480 ? 2 : 3,
           childAmount: 6,
           itemBuilder: (context, index) {
-            return const CustomRecommMovieCardMobile();
+            return const CustomRecommMovieCardMobile(
+              movieTitle: 'Blue Beetle',
+              imageUrl: 'images/blue_beetle.jpg',
+            );
           },
         ),
         const SizedBox(
@@ -101,7 +80,11 @@ class _RecommendedPartMobileState extends State<RecommendedPartMobile> {
 }
 
 class CustomRecommMovieCardMobile extends StatefulWidget {
+  final String movieTitle;
+  final String imageUrl;
   const CustomRecommMovieCardMobile({
+    required this.movieTitle,
+    required this.imageUrl,
     super.key,
   });
 
@@ -131,14 +114,13 @@ class _CustomRecommMovieCardMobileState
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           AspectRatio(
-            aspectRatio: screenWidth < 480 ? 9 / 12 : 9 / 14,
+            aspectRatio: screenWidth < 480 ? 9 / 12 : 9 / 13,
             child: Stack(
               children: [
                 Container(
                   decoration: BoxDecoration(
-                      image: const DecorationImage(
-                          image: AssetImage('images/blue_beetle.jpg'),
-                          fit: BoxFit.fill),
+                      image: DecorationImage(
+                          image: AssetImage(widget.imageUrl), fit: BoxFit.fill),
                       borderRadius: BorderRadius.circular(8)),
                   width: double.infinity,
                   child: Column(
@@ -214,7 +196,7 @@ class _CustomRecommMovieCardMobileState
           ),
           Expanded(
             child: Text(
-              'Blue Beetle',
+              widget.movieTitle,
               style: TextStyle(
                   color: isOnHovered ? AppColor.onHoveredColor : Colors.white,
                   fontSize: 14),

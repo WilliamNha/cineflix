@@ -1,4 +1,5 @@
 import 'package:cineflix/constants/app_color.dart';
+import 'package:cineflix/widgets/global/custom_movies_category_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -12,11 +13,7 @@ class AppBarRowMobile extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Icon(
-          Icons.filter_list,
-          size: 40,
-          color: Colors.white,
-        ),
+        const CustomMoviesCategoryButton(),
         const SizedBox(
           width: 10,
         ),

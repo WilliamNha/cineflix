@@ -24,7 +24,18 @@ class _TrendingNowPartMobileState extends State<TrendingNowPartMobile> {
       children: [
         Container(
           padding: const EdgeInsets.symmetric(vertical: 25),
-          color: Colors.black,
+          decoration: BoxDecoration(
+            color: const Color(0xff181818),
+            gradient: LinearGradient(
+              colors: [
+                Colors.black.withOpacity(1),
+                Colors.black.withOpacity(0.09),
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              stops: const [0, 0.6],
+            ),
+          ),
           width: double.infinity,
           child: Center(
               child: Row(
@@ -91,7 +102,7 @@ class _TrendingNowPartMobileState extends State<TrendingNowPartMobile> {
             size: 4,
             padding: 0,
             selectedColor: AppColor.onHoveredColor,
-            unselectedColor: const Color(0xff181818),
+            unselectedColor: Colors.black,
             roundedEdges: const Radius.circular(10),
           ),
         ),

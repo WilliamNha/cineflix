@@ -33,7 +33,6 @@ class _CustomTrendingMovieCardMobileState
             width: double.infinity,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                color: Colors.red,
                 image: const DecorationImage(
                     image: AssetImage('images/spider-man.png'),
                     fit: BoxFit.cover)),
