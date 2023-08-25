@@ -1,4 +1,5 @@
 import 'package:cineflix/constants/app_color.dart';
+import 'package:cineflix/widgets/global/custom_trending_now_title.dart';
 import 'package:cineflix/widgets/home/mobile/custom_trending_movie_card_mobile.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -37,35 +38,7 @@ class _TrendingNowPartMobileState extends State<TrendingNowPartMobile> {
             ),
           ),
           width: double.infinity,
-          child: Center(
-              child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              FaIcon(
-                // ignore: deprecated_member_use
-                FontAwesomeIcons.fireAlt,
-                color: Colors.white,
-                size: 16,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Text(
-                  'Trending Now',
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-              FaIcon(
-                // ignore: deprecated_member_use
-                FontAwesomeIcons.fireAlt,
-                color: Colors.white,
-                size: 16,
-              ),
-            ],
-          )),
+          child: const Center(child: CustomTrendingNowTitle()),
         ),
         // trending now image slider
         SizedBox(

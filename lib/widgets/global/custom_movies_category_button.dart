@@ -38,7 +38,9 @@ class _CustomMoviesCategoryButtonState
           customButton: Icon(
             Icons.filter_list,
             size: 40,
-            color: isOnHovered ? AppColor.onHoveredColor : Colors.white,
+            color: isOnHovered
+                ? AppColor.onHoveredColor
+                : Colors.white.withOpacity(0.7),
           ),
           items: items
               .map((String item) => DropdownMenuItem<String>(
@@ -56,9 +58,7 @@ class _CustomMoviesCategoryButtonState
             width: 120,
             padding: const EdgeInsets.symmetric(vertical: 6),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
-              color: Colors.white,
-            ),
+                borderRadius: BorderRadius.circular(4), color: Colors.white),
             // offset: const Offset(40, -4),
           ),
         ),
