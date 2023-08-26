@@ -1,6 +1,7 @@
 import 'package:cineflix/constants/app_color.dart';
 import 'package:cineflix/widgets/global/custom_trending_now_title.dart';
 import 'package:cineflix/widgets/home/desktop/app_bar_row_tablet.dart';
+import 'package:cineflix/widgets/home/mobile/custom_trending_movie_card_mobile.dart';
 import 'package:cineflix/widgets/home/tablet/movie_header_tablet.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -16,13 +17,17 @@ class TabletBody extends StatefulWidget {
 class _TabletBodyState extends State<TabletBody> {
   bool isLeftButtonHovered = false;
   bool isRightButtonHovered = false;
+  bool isTrendNextButtonHovered = false;
   int pageCurrentIndex = 0;
   int trendingSlideIndex = 1;
+  var trendingController = PageController(viewportFraction: 1 / 2);
+  PageController movieHeaderController = PageController();
+  ScrollController controller = ScrollController();
+
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     //850 change layout
-    final PageController movieHeaderController = PageController();
-    ScrollController controller = ScrollController();
 
     // debugPrint('width: $screenWidth');
     return Scaffold(
@@ -45,13 +50,13 @@ class _TabletBodyState extends State<TabletBody> {
                 Stack(
                   children: [
                     Container(
-                      color: Colors.yellow,
+                      color: AppColor.backgroundColor,
                       width: double.infinity,
-                      height: 760,
+                      height: 850,
                       child: PageView(
                         onPageChanged: (index) {
                           setState(() {
-                            trendingSlideIndex = index + 1;
+                            pageCurrentIndex = index;
                           });
                         },
                         scrollBehavior:
@@ -80,7 +85,7 @@ class _TabletBodyState extends State<TabletBody> {
                     // forward and back button
                     Positioned(
                         right: 20,
-                        top: 440,
+                        top: 420,
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -91,11 +96,13 @@ class _TabletBodyState extends State<TabletBody> {
                               onTap: pageCurrentIndex == 0
                                   ? null
                                   : () {
-                                      movieHeaderController.animateToPage(
-                                          --pageCurrentIndex,
-                                          duration:
-                                              const Duration(milliseconds: 300),
-                                          curve: Curves.linear);
+                                      setState(() {
+                                        movieHeaderController.animateToPage(
+                                            --pageCurrentIndex,
+                                            duration: const Duration(
+                                                milliseconds: 300),
+                                            curve: Curves.linear);
+                                      });
                                     },
                               onHover: (isHovered) {
                                 setState(() {
@@ -106,7 +113,7 @@ class _TabletBodyState extends State<TabletBody> {
                                 decoration: BoxDecoration(
                                     color: isLeftButtonHovered
                                         ? AppColor.onHoveredColor
-                                        : Colors.white.withOpacity(0.2),
+                                        : Colors.grey.withOpacity(0.6),
                                     borderRadius: BorderRadius.circular(4)),
                                 // width: 500,
                                 padding: const EdgeInsets.all(2),
@@ -127,11 +134,13 @@ class _TabletBodyState extends State<TabletBody> {
                               onTap: pageCurrentIndex == 3
                                   ? null
                                   : () {
-                                      movieHeaderController.animateToPage(
-                                          ++pageCurrentIndex,
-                                          duration:
-                                              const Duration(milliseconds: 300),
-                                          curve: Curves.linear);
+                                      setState(() {
+                                        movieHeaderController.animateToPage(
+                                            ++pageCurrentIndex,
+                                            duration: const Duration(
+                                                milliseconds: 300),
+                                            curve: Curves.linear);
+                                      });
                                     },
                               onHover: (isHovered) {
                                 setState(() {
@@ -144,7 +153,7 @@ class _TabletBodyState extends State<TabletBody> {
                                 decoration: BoxDecoration(
                                     color: isRightButtonHovered
                                         ? AppColor.onHoveredColor
-                                        : Colors.white.withOpacity(0.2),
+                                        : Colors.grey.withOpacity(0.6),
                                     borderRadius: BorderRadius.circular(4)),
                                 child: const Center(
                                     child: Icon(
@@ -161,7 +170,7 @@ class _TabletBodyState extends State<TabletBody> {
                     //  progress bar
                     Positioned(
                       left: 0,
-                      top: 500,
+                      top: 490,
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width,
                         child: Padding(
@@ -171,7 +180,7 @@ class _TabletBodyState extends State<TabletBody> {
                           ),
                           child: StepProgressIndicator(
                             totalSteps: 4,
-                            currentStep: trendingSlideIndex,
+                            currentStep: pageCurrentIndex + 1,
                             size: 1.5,
                             padding: 0,
                             selectedColor: Colors.white.withOpacity(0.6),
@@ -184,12 +193,164 @@ class _TabletBodyState extends State<TabletBody> {
                     //trending now title
                     Positioned(
                       left: 0,
-                      top: 520,
+                      top: 510,
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width,
                         child: const Center(child: CustomTrendingNowTitle()),
                       ),
                     ),
+                    //trending image slider
+                    Positioned(
+                        right: 0,
+                        left: 0,
+                        top: 550,
+                        child: Container(
+                          // color: Colors.red,
+                          margin: EdgeInsets.only(
+                              left: 10, right: screenWidth >= 850 ? 50 : 10),
+                          width: MediaQuery.of(context).size.width,
+                          height: 220,
+                          // color: Colors.red,
+                          child: LayoutBuilder(
+                            builder: (context, constrains) {
+                              return PageView(
+                                padEnds: false,
+                                controller: trendingController,
+                                onPageChanged: (index) {
+                                  setState(() {
+                                    trendingSlideIndex = index + 1;
+                                  });
+                                },
+                                scrollBehavior:
+                                    ScrollConfiguration.of(context).copyWith(
+                                  dragDevices: {
+                                    PointerDeviceKind.touch,
+                                    PointerDeviceKind.mouse,
+                                    PointerDeviceKind.trackpad,
+                                  },
+                                ),
+                                scrollDirection: Axis.horizontal,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: CustomTrendingMovieCardMobile(
+                                      width:
+                                          MediaQuery.of(context).size.width / 2,
+                                      height: 220,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: CustomTrendingMovieCardMobile(
+                                      width:
+                                          MediaQuery.of(context).size.width / 2,
+                                      height: 220,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: CustomTrendingMovieCardMobile(
+                                      width:
+                                          MediaQuery.of(context).size.width / 2,
+                                      height: 220,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: CustomTrendingMovieCardMobile(
+                                      width:
+                                          MediaQuery.of(context).size.width / 2,
+                                      height: 220,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: CustomTrendingMovieCardMobile(
+                                      width:
+                                          MediaQuery.of(context).size.width / 2,
+                                      height: 220,
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                        )),
+                    //progress bar
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      top: 770,
+                      child: Padding(
+                        padding:
+                            const EdgeInsets.only(left: 15, right: 15, top: 10),
+                        child: StepProgressIndicator(
+                          totalSteps: 4,
+                          currentStep: trendingSlideIndex,
+                          size: 4,
+                          padding: 0,
+                          selectedColor: AppColor.onHoveredColor,
+                          unselectedColor: Colors.black,
+                          roundedEdges: const Radius.circular(10),
+                        ),
+                      ),
+                    ),
+                    //forward and back button
+                    screenWidth >= 850
+                        ? Positioned(
+                            right: 20,
+                            top: 555,
+                            child: Column(
+                              children: [
+                                InkWell(
+                                  onTap: () {},
+                                  onHover: (isHovered) {
+                                    setState(() {
+                                      isTrendNextButtonHovered = isHovered;
+                                    });
+                                  },
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      color: isTrendNextButtonHovered
+                                          ? AppColor.onHoveredColor
+                                          : Colors.grey.withOpacity(0.6),
+                                    ),
+                                    width: 25,
+                                    height: 100,
+                                    child: const Center(
+                                        child: Icon(
+                                      Icons.keyboard_arrow_right,
+                                      size: 25,
+                                    )),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    color: Colors.grey.withOpacity(0.6),
+                                  ),
+                                  width: 25,
+                                  height: 100,
+                                  child: const Center(
+                                      child: Icon(
+                                    Icons.keyboard_arrow_left,
+                                    size: 25,
+                                  )),
+                                ),
+                              ],
+                            ))
+                        : const SizedBox()
                   ],
                 ),
               ],

@@ -45,7 +45,7 @@ class MovieHeadTablet extends StatelessWidget {
         ),
 
         Positioned(
-            bottom: 265,
+            bottom: 370,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
