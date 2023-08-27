@@ -165,7 +165,7 @@ class MovieHeadTablet extends StatelessWidget {
                     ],
                   ),
                 ),
-                screenWidth >= 850
+                screenWidth >= 1080
                     ? SizedBox(
                         width: MediaQuery.of(context).size.width,
                         child: const Padding(

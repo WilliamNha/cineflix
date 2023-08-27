@@ -1,9 +1,14 @@
+import 'dart:ui';
+
 import 'package:cineflix/constants/app_color.dart';
+import 'package:cineflix/widgets/global/custom_back_and_next_button_movie_slider.dart';
+import 'package:cineflix/widgets/global/custom_back_and_next_button_trending_now.dart';
 import 'package:cineflix/widgets/global/custom_trending_now_title.dart';
 import 'package:cineflix/widgets/home/desktop/app_bar_row_tablet.dart';
 import 'package:cineflix/widgets/home/mobile/custom_trending_movie_card_mobile.dart';
+import 'package:cineflix/widgets/home/tablet/latest_movies_part_tablet.dart';
 import 'package:cineflix/widgets/home/tablet/movie_header_tablet.dart';
-import 'package:flutter/gestures.dart';
+import 'package:cineflix/widgets/home/tablet/recommended_part_tablet.dart';
 import 'package:flutter/material.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
@@ -15,11 +20,8 @@ class TabletBody extends StatefulWidget {
 }
 
 class _TabletBodyState extends State<TabletBody> {
-  bool isLeftButtonHovered = false;
-  bool isRightButtonHovered = false;
-  bool isTrendNextButtonHovered = false;
   int pageCurrentIndex = 0;
-  int trendingSlideIndex = 1;
+  int trendingSlideIndex = 0;
   var trendingController = PageController(viewportFraction: 1 / 2);
   PageController movieHeaderController = PageController();
   ScrollController controller = ScrollController();
@@ -27,7 +29,7 @@ class _TabletBodyState extends State<TabletBody> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    //850 change layout
+    //1080 change layout
 
     // debugPrint('width: $screenWidth');
     return Scaffold(
@@ -40,7 +42,6 @@ class _TabletBodyState extends State<TabletBody> {
           thickness: 8,
           // controller: yourScrollController,
           trackVisibility: true,
-
           child: SingleChildScrollView(
             controller: controller,
             child: Column(
@@ -86,88 +87,26 @@ class _TabletBodyState extends State<TabletBody> {
                     Positioned(
                         right: 20,
                         top: 420,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: pageCurrentIndex == 0
-                                  ? null
-                                  : () {
-                                      setState(() {
-                                        movieHeaderController.animateToPage(
-                                            --pageCurrentIndex,
-                                            duration: const Duration(
-                                                milliseconds: 300),
-                                            curve: Curves.linear);
-                                      });
-                                    },
-                              onHover: (isHovered) {
-                                setState(() {
-                                  isLeftButtonHovered = isHovered;
-                                });
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: isLeftButtonHovered
-                                        ? AppColor.onHoveredColor
-                                        : Colors.grey.withOpacity(0.6),
-                                    borderRadius: BorderRadius.circular(4)),
-                                // width: 500,
-                                padding: const EdgeInsets.all(2),
-
-                                child: const Center(
-                                    child: Icon(
-                                  Icons.keyboard_arrow_left,
-                                  size: 30,
-                                )),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: pageCurrentIndex == 3
-                                  ? null
-                                  : () {
-                                      setState(() {
-                                        movieHeaderController.animateToPage(
-                                            ++pageCurrentIndex,
-                                            duration: const Duration(
-                                                milliseconds: 300),
-                                            curve: Curves.linear);
-                                      });
-                                    },
-                              onHover: (isHovered) {
-                                setState(() {
-                                  isRightButtonHovered = isHovered;
-                                });
-                              },
-                              child: Container(
-                                // width: 500,
-                                padding: const EdgeInsets.all(2),
-                                decoration: BoxDecoration(
-                                    color: isRightButtonHovered
-                                        ? AppColor.onHoveredColor
-                                        : Colors.grey.withOpacity(0.6),
-                                    borderRadius: BorderRadius.circular(4)),
-                                child: const Center(
-                                    child: Icon(
-                                  Icons.keyboard_arrow_right,
-                                  size: 30,
-                                )),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 15,
-                            ),
-                          ],
+                        child: CustomBackAndNextButtonsMovieSlider(
+                          onBackButtonTapped: () {
+                            setState(() {
+                              movieHeaderController.animateToPage(
+                                  --pageCurrentIndex,
+                                  duration: const Duration(milliseconds: 300),
+                                  curve: Curves.linear);
+                            });
+                          },
+                          onNextButtonTapped: () {
+                            setState(() {
+                              movieHeaderController.animateToPage(
+                                  ++pageCurrentIndex,
+                                  duration: const Duration(milliseconds: 300),
+                                  curve: Curves.linear);
+                            });
+                          },
+                          currentIndex: pageCurrentIndex,
                         )),
-                    //  progress bar
+                    //  progress bar movie slider
                     Positioned(
                       left: 0,
                       top: 490,
@@ -207,7 +146,7 @@ class _TabletBodyState extends State<TabletBody> {
                         child: Container(
                           // color: Colors.red,
                           margin: EdgeInsets.only(
-                              left: 10, right: screenWidth >= 850 ? 50 : 10),
+                              left: 10, right: screenWidth >= 1080 ? 50 : 10),
                           width: MediaQuery.of(context).size.width,
                           height: 220,
                           // color: Colors.red,
@@ -218,7 +157,7 @@ class _TabletBodyState extends State<TabletBody> {
                                 controller: trendingController,
                                 onPageChanged: (index) {
                                   setState(() {
-                                    trendingSlideIndex = index + 1;
+                                    trendingSlideIndex = index;
                                   });
                                 },
                                 scrollBehavior:
@@ -291,7 +230,7 @@ class _TabletBodyState extends State<TabletBody> {
                             const EdgeInsets.only(left: 15, right: 15, top: 10),
                         child: StepProgressIndicator(
                           totalSteps: 4,
-                          currentStep: trendingSlideIndex,
+                          currentStep: trendingSlideIndex + 1,
                           size: 4,
                           padding: 0,
                           selectedColor: AppColor.onHoveredColor,
@@ -301,58 +240,38 @@ class _TabletBodyState extends State<TabletBody> {
                       ),
                     ),
                     //forward and back button
-                    screenWidth >= 850
+                    screenWidth >= 1080
                         ? Positioned(
                             right: 20,
                             top: 555,
-                            child: Column(
-                              children: [
-                                InkWell(
-                                  onTap: () {},
-                                  onHover: (isHovered) {
-                                    setState(() {
-                                      isTrendNextButtonHovered = isHovered;
-                                    });
-                                  },
-                                  splashColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      color: isTrendNextButtonHovered
-                                          ? AppColor.onHoveredColor
-                                          : Colors.grey.withOpacity(0.6),
-                                    ),
-                                    width: 25,
-                                    height: 100,
-                                    child: const Center(
-                                        child: Icon(
-                                      Icons.keyboard_arrow_right,
-                                      size: 25,
-                                    )),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    color: Colors.grey.withOpacity(0.6),
-                                  ),
-                                  width: 25,
-                                  height: 100,
-                                  child: const Center(
-                                      child: Icon(
-                                    Icons.keyboard_arrow_left,
-                                    size: 25,
-                                  )),
-                                ),
-                              ],
+                            child: CustomBackAndNextButtonTrendingNow(
+                              onNextButtonTapped: () {
+                                setState(() {
+                                  trendingController.animateToPage(
+                                      ++trendingSlideIndex,
+                                      duration:
+                                          const Duration(milliseconds: 300),
+                                      curve: Curves.linear);
+                                });
+                              },
+                              onBackButtonTapped: () {
+                                setState(() {
+                                  trendingController.animateToPage(
+                                      --trendingSlideIndex,
+                                      duration:
+                                          const Duration(milliseconds: 300),
+                                      curve: Curves.linear);
+                                });
+                              },
+                              currentIndex: trendingSlideIndex,
                             ))
-                        : const SizedBox()
+                        : const SizedBox(),
                   ],
                 ),
+                //recommended part
+                const RecommendedPartTablet(),
+                //lastest movies
+                const LatestMoviesPartTablet(),
               ],
             ),
           ),
