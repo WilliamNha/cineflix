@@ -6,9 +6,12 @@ import 'package:cineflix/widgets/global/custom_back_and_next_button_trending_now
 import 'package:cineflix/widgets/global/custom_trending_now_title.dart';
 import 'package:cineflix/widgets/home/desktop/app_bar_row_tablet.dart';
 import 'package:cineflix/widgets/home/mobile/custom_trending_movie_card_mobile.dart';
+import 'package:cineflix/widgets/home/tablet/lastest_tv_show_part.dart';
 import 'package:cineflix/widgets/home/tablet/latest_movies_part_tablet.dart';
 import 'package:cineflix/widgets/home/tablet/movie_header_tablet.dart';
+import 'package:cineflix/widgets/home/tablet/recently_updated_part_tablet.dart';
 import 'package:cineflix/widgets/home/tablet/recommended_part_tablet.dart';
+import 'package:cineflix/widgets/home/tablet/top_9_part_tablet.dart';
 import 'package:flutter/material.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
@@ -268,10 +271,16 @@ class _TabletBodyState extends State<TabletBody> {
                         : const SizedBox(),
                   ],
                 ),
-                //recommended part
+                // recommended part
                 const RecommendedPartTablet(),
-                //lastest movies
+                // lastest movies
                 const LatestMoviesPartTablet(),
+                // lastest movie show
+                const LatestTvShowPartTablet(),
+                // top 10
+                const Top10PartTablet(),
+                // recently updated
+                const RecentlyUpdatedPartTablet(),
               ],
             ),
           ),

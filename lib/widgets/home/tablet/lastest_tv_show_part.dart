@@ -3,16 +3,16 @@ import 'package:cineflix/widgets/global/custom_section_title.dart';
 import 'package:cineflix/widgets/home/mobile/recommended_part_mobile.dart';
 import 'package:flutter/material.dart';
 
-class LatestMoviesPartTablet extends StatefulWidget {
-  const LatestMoviesPartTablet({
+class LatestTvShowPartTablet extends StatefulWidget {
+  const LatestTvShowPartTablet({
     super.key,
   });
 
   @override
-  State<LatestMoviesPartTablet> createState() => _LatestMoviesPartTabletState();
+  State<LatestTvShowPartTablet> createState() => _LatestTvShowPartTabletState();
 }
 
-class _LatestMoviesPartTabletState extends State<LatestMoviesPartTablet> {
+class _LatestTvShowPartTabletState extends State<LatestTvShowPartTablet> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -29,7 +29,7 @@ class _LatestMoviesPartTabletState extends State<LatestMoviesPartTablet> {
               CustomSectionTitle(
                 buttonIconWidth: 14,
                 titleTextSize: 24,
-                title: 'LATEST MOVIES',
+                title: 'LATEST TV SHOWS',
               ),
               SizedBox(
                 width: 15,

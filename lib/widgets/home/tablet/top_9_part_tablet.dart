@@ -1,29 +1,27 @@
-import 'package:cineflix/widgets/global/custom_grid_view_builder.dart';
+import 'package:cineflix/widgets/global/custom_movie_card_long.dart';
 import 'package:cineflix/widgets/global/custom_movie_type_selection_button.dart';
 import 'package:cineflix/widgets/global/custom_section_title.dart';
-import 'package:cineflix/widgets/home/mobile/recommended_part_mobile.dart';
 import 'package:flutter/material.dart';
 
-class RecommendedPartTablet extends StatefulWidget {
-  const RecommendedPartTablet({
+class Top10PartTablet extends StatefulWidget {
+  const Top10PartTablet({
     super.key,
   });
 
   @override
-  State<RecommendedPartTablet> createState() => _RecommendedPartTabletState();
+  State<Top10PartTablet> createState() => _Top10PartTabletState();
 }
 
-class _RecommendedPartTabletState extends State<RecommendedPartTablet> {
+class _Top10PartTabletState extends State<Top10PartTablet> {
   int selectedMovieTypeIndex = 0;
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 15, top: 30, bottom: 20),
+          padding: const EdgeInsets.only(left: 15, top: 40, bottom: 20),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -31,17 +29,15 @@ class _RecommendedPartTabletState extends State<RecommendedPartTablet> {
               const CustomSectionTitle(
                 buttonIconWidth: 14,
                 titleTextSize: 24,
-                title: 'RECOMMENDED',
+                title: 'TOP10',
               ),
-              const SizedBox(
-                width: 15,
-              ),
+              const Spacer(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   CustomMovieTypeSelectionButton(
-                    buttonText: 'Movies',
+                    buttonText: 'Day',
                     isSelected: selectedMovieTypeIndex == 0,
                     onTap: () {
                       setState(() {
@@ -53,7 +49,7 @@ class _RecommendedPartTabletState extends State<RecommendedPartTablet> {
                     width: 10,
                   ),
                   CustomMovieTypeSelectionButton(
-                    buttonText: 'TV Shows',
+                    buttonText: 'Week',
                     isSelected: selectedMovieTypeIndex == 1,
                     onTap: () {
                       setState(() {
@@ -61,24 +57,46 @@ class _RecommendedPartTabletState extends State<RecommendedPartTablet> {
                       });
                     },
                   ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  CustomMovieTypeSelectionButton(
+                    buttonText: 'Month',
+                    isSelected: selectedMovieTypeIndex == 2,
+                    onTap: () {
+                      setState(() {
+                        selectedMovieTypeIndex = 2;
+                      });
+                    },
+                  ),
                 ],
+              ),
+              const SizedBox(
+                width: 15,
               ),
             ],
           ),
         ),
-        CustomGridViewBuilder(
-          horizontalSpacing: 10,
-          childHeight: screenWidth >= 1080
-              ? MediaQuery.of(context).size.width / 2.9
-              : MediaQuery.of(context).size.width / 2.3,
-          chilAmountPerRow: screenWidth >= 1080 ? 5 : 4,
-          childAmount: 12,
-          itemBuilder: (context, index) {
-            return const CustomRecommMovieCardMobile(
-              movieTitle: 'Blue Beetle',
-              imageUrl: 'images/blue_beetle.jpg',
-            );
-          },
+        const Padding(
+          padding: EdgeInsets.only(bottom: 10),
+          child: CustomMovieCardLong(
+            isHasCircleNumber: true,
+          ),
+        ),
+        const Padding(
+          padding: EdgeInsets.only(bottom: 10),
+          child: CustomMovieCardLong(
+            isHasCircleNumber: true,
+          ),
+        ),
+        const Padding(
+          padding: EdgeInsets.only(bottom: 10),
+          child: CustomMovieCardLong(
+            isHasCircleNumber: true,
+          ),
+        ),
+        const SizedBox(
+          height: 20,
         ),
       ],
     );
