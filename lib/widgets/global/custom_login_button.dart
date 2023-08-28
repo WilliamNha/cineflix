@@ -31,7 +31,9 @@ class _CustomLoginButtonState extends State<CustomLoginButton> {
                 color: isOnHovered
                     ? AppColor.onHoveredColor
                     : Colors.white.withOpacity(0.7)),
-            color: isOnHovered ? AppColor.onHoveredColor : Colors.black38,
+            color: isOnHovered
+                ? AppColor.onHoveredColor
+                : Colors.black.withOpacity(0.2),
             borderRadius: BorderRadius.circular(20)),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         child: Row(
