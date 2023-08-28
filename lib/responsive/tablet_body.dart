@@ -4,7 +4,7 @@ import 'package:cineflix/constants/app_color.dart';
 import 'package:cineflix/widgets/global/custom_back_and_next_button_movie_slider.dart';
 import 'package:cineflix/widgets/global/custom_back_and_next_button_trending_now.dart';
 import 'package:cineflix/widgets/global/custom_trending_now_title.dart';
-import 'package:cineflix/widgets/home/desktop/app_bar_row_tablet.dart';
+import 'package:cineflix/widgets/home/tablet/app_bar_row_tablet.dart';
 import 'package:cineflix/widgets/home/mobile/custom_trending_movie_card_mobile.dart';
 import 'package:cineflix/widgets/home/tablet/lastest_tv_show_part.dart';
 import 'package:cineflix/widgets/home/tablet/latest_movies_part_tablet.dart';
