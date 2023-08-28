@@ -3,8 +3,12 @@ import 'package:cineflix/constants/app_constants.dart';
 import 'package:flutter/material.dart';
 
 class CustomTrendingMovieCardMobile extends StatefulWidget {
+  final double height;
+  final double width;
   const CustomTrendingMovieCardMobile({
+    this.width = double.infinity,
     super.key,
+    this.height = 170,
   });
 
   @override
@@ -29,23 +33,23 @@ class _CustomTrendingMovieCardMobileState
       child: Stack(
         children: [
           Container(
-            height: 170,
-            width: double.infinity,
+            height: widget.height,
+            width: widget.width,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 image: const DecorationImage(
                     image: AssetImage('images/spider-man.png'),
                     fit: BoxFit.cover)),
-            margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+            margin: const EdgeInsets.symmetric(vertical: 5),
           ),
           Positioned(
             child: Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   color: Colors.black26),
-              height: 170,
-              width: double.infinity,
-              margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+              height: widget.height,
+              width: widget.width,
+              margin: const EdgeInsets.symmetric(vertical: 5),
             ),
           ),
           Positioned(
@@ -62,16 +66,16 @@ class _CustomTrendingMovieCardMobileState
                   stops: const [0, 0.9],
                 ),
               ),
-              height: 170,
-              width: double.infinity,
-              margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+              height: widget.height,
+              width: widget.width,
+              margin: const EdgeInsets.symmetric(vertical: 5),
             ),
           ),
           Positioned.fill(
             child: Container(
-              height: 170,
-              width: double.infinity,
-              margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              height: widget.height,
+              width: widget.width,
+              margin: const EdgeInsets.symmetric(vertical: 10),
               child: Padding(
                 padding: const EdgeInsets.only(left: 20, bottom: 10),
                 child: Column(
@@ -130,8 +134,7 @@ class _CustomTrendingMovieCardMobileState
           isOnHovered
               ? Positioned.fill(
                   child: Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                  margin: const EdgeInsets.symmetric(vertical: 5),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
                       gradient: LinearGradient(

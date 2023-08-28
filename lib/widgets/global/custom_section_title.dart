@@ -3,8 +3,12 @@ import 'package:cineflix/constants/app_constants.dart';
 import 'package:flutter/material.dart';
 
 class CustomSectionTitle extends StatelessWidget {
+  final double buttonIconWidth;
+  final double titleTextSize;
   final String title;
   const CustomSectionTitle({
+    this.titleTextSize = 20,
+    this.buttonIconWidth = 10,
     required this.title,
     super.key,
   });
@@ -16,16 +20,15 @@ class CustomSectionTitle extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          width: 12,
-          height: 18,
+          padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 4),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(2),
             color: AppColor.primaryColor,
           ),
-          child: const Icon(
+          child: Icon(
             Icons.play_arrow,
             color: Colors.black,
-            size: 10,
+            size: buttonIconWidth,
           ),
         ),
         const SizedBox(
@@ -33,8 +36,10 @@ class CustomSectionTitle extends StatelessWidget {
         ),
         Text(
           title,
-          style: const TextStyle(
-              fontFamily: hanlyFont, fontSize: 20, color: Colors.white),
+          style: TextStyle(
+              fontFamily: hanlyFont,
+              fontSize: titleTextSize,
+              color: Colors.white),
         ),
       ],
     );

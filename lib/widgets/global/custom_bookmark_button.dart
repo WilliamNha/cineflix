@@ -31,7 +31,9 @@ class _CustomBookmarkButtonState extends State<CustomBookmarkButton> {
           child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Icon(
               Icons.bookmark_outline,
-              color: isOnHovered ? AppColor.onHoveredColor : Colors.white,
+              color: isOnHovered
+                  ? AppColor.onHoveredColor
+                  : Colors.white.withOpacity(0.8),
               size: 25,
             ),
             const SizedBox(
@@ -40,7 +42,9 @@ class _CustomBookmarkButtonState extends State<CustomBookmarkButton> {
             Text(
               'Bookmark',
               style: TextStyle(
-                  color: isOnHovered ? AppColor.onHoveredColor : Colors.white,
+                  color: isOnHovered
+                      ? AppColor.onHoveredColor
+                      : Colors.white.withOpacity(0.8),
                   fontSize: 16,
                   fontWeight: FontWeight.bold),
             )
