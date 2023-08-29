@@ -3,7 +3,12 @@ import 'package:cineflix/widgets/global/custom_back_and_next_button_movie_slider
 import 'package:cineflix/widgets/global/custom_back_and_next_button_trending_now.dart';
 import 'package:cineflix/widgets/global/custom_trending_now_title.dart';
 import 'package:cineflix/widgets/home/desktop/app_bar_row_desktop.dart';
+import 'package:cineflix/widgets/home/desktop/custom_top_10_part_desktop.dart';
+import 'package:cineflix/widgets/home/desktop/latest_movies_part_desktop.dart';
+import 'package:cineflix/widgets/home/desktop/latest_tv_show_part_desktop.dart';
 import 'package:cineflix/widgets/home/desktop/movie_header_desktop.dart';
+import 'package:cineflix/widgets/home/desktop/recently_updated_desktop.dart';
+import 'package:cineflix/widgets/home/desktop/recommended_part_desktop.dart';
 import 'package:cineflix/widgets/home/mobile/custom_trending_movie_card_mobile.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -22,9 +27,10 @@ class _DesktopBodyState extends State<DesktopBody> {
   var trendingController = PageController(viewportFraction: 1 / 3);
   PageController movieHeaderController = PageController();
   ScrollController controller = ScrollController();
+
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    // final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         backgroundColor: const Color(0xff181818),
         body: RawScrollbar(
@@ -254,8 +260,55 @@ class _DesktopBodyState extends State<DesktopBody> {
                             });
                           },
                           currentIndex: trendingSlideIndex,
-                        ))
+                        )),
                   ],
+                ),
+
+                const SizedBox(
+                  height: 40,
+                ),
+                //recommended , top10, recently updated part
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  // height: 500,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // recommended part
+                      Expanded(
+                        flex: 5,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            RecommendedPartDesktop(),
+                            // latest movies part
+                            LatestMoviesPartDesktop(),
+                            // latest tv show
+                            LatestTvShowPartDesktop()
+                          ],
+                        ),
+                      ),
+                      //top10 part, recently upated
+                      Expanded(
+                        flex: 2,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            Top10PartDesktop(),
+                            RecentlyUpdatedDesktop()
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
                 ),
               ],
             ),

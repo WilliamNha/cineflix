@@ -4,6 +4,7 @@ import 'package:cineflix/widgets/global/custom_section_title.dart';
 import 'package:cineflix/widgets/home/mobile/app_bar_row_mobile.dart';
 import 'package:cineflix/widgets/home/mobile/latest_movies_part_mobile.dart';
 import 'package:cineflix/widgets/home/mobile/movie_header_mobile.dart';
+import 'package:cineflix/widgets/home/mobile/recently_updated_part_mobile.dart';
 import 'package:cineflix/widgets/home/mobile/recommended_part_mobile.dart';
 import 'package:cineflix/widgets/home/mobile/top_10_part_mobile.dart';
 import 'package:cineflix/widgets/home/mobile/trending_now_part_mobile.dart';
@@ -75,32 +76,9 @@ class _MobileBodyState extends State<MobileBody> {
               // top 10
               const Top10PartMobile(),
               // recently updated
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Padding(
-                    padding: EdgeInsets.only(top: 20, bottom: 10),
-                    child: CustomSectionTitle(
-                      title: 'RECENTLY UPDATED',
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 10),
-                    child: CustomMovieCardLong(),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 10),
-                    child: CustomMovieCardLong(),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 10),
-                    child: CustomMovieCardLong(),
-                  ),
-                ],
+              const RecentlyUpdatedPartMobile(),
+              const SizedBox(
+                height: 30,
               )
             ]),
           ),
