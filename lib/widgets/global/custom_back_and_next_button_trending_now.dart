@@ -2,10 +2,12 @@ import 'package:cineflix/constants/app_color.dart';
 import 'package:flutter/material.dart';
 
 class CustomBackAndNextButtonTrendingNow extends StatefulWidget {
+  final int maxIndex;
   final int currentIndex;
   final GestureTapCallback onBackButtonTapped;
   final GestureTapCallback onNextButtonTapped;
   const CustomBackAndNextButtonTrendingNow({
+    this.maxIndex = 3,
     required this.currentIndex,
     required this.onBackButtonTapped,
     required this.onNextButtonTapped,
@@ -26,7 +28,9 @@ class _CustomBackAndNextButtonTrendingNowState
     return Column(
       children: [
         InkWell(
-          onTap: widget.currentIndex == 3 ? null : widget.onNextButtonTapped,
+          onTap: widget.currentIndex == widget.maxIndex
+              ? null
+              : widget.onNextButtonTapped,
           onHover: (isHovered) {
             setState(() {
               isNextButtonHovered = isHovered;
@@ -37,7 +41,7 @@ class _CustomBackAndNextButtonTrendingNowState
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
-              color: widget.currentIndex == 3
+              color: widget.currentIndex == widget.maxIndex
                   ? Colors.white.withOpacity(0.15)
                   : isNextButtonHovered
                       ? AppColor.onHoveredColor

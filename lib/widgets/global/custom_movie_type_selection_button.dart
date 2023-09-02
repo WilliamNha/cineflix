@@ -2,10 +2,12 @@ import 'package:cineflix/constants/app_color.dart';
 import 'package:flutter/material.dart';
 
 class CustomMovieTypeSelectionButton extends StatefulWidget {
+  final double titleSize;
   final GestureTapCallback onTap;
   final String buttonText;
   final bool isSelected;
   const CustomMovieTypeSelectionButton({
+    this.titleSize = 12,
     required this.onTap,
     required this.buttonText,
     super.key,
@@ -43,6 +45,7 @@ class _CustomMovieTypeSelectionButtonState
         child: Text(
           widget.buttonText,
           style: TextStyle(
+              fontSize: widget.titleSize,
               color: widget.isSelected || isOnHovered
                   ? AppColor.primaryColor
                   : Colors.white.withOpacity(0.5),

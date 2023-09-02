@@ -3,19 +3,13 @@ import 'package:cineflix/widgets/global/custom_movie_card_in_grid.dart';
 import 'package:cineflix/widgets/global/custom_section_title.dart';
 import 'package:flutter/material.dart';
 
-class LatestTvShowPartTablet extends StatefulWidget {
-  const LatestTvShowPartTablet({
+class LatestTvShowPartDesktop extends StatelessWidget {
+  const LatestTvShowPartDesktop({
     super.key,
   });
 
   @override
-  State<LatestTvShowPartTablet> createState() => _LatestTvShowPartTabletState();
-}
-
-class _LatestTvShowPartTabletState extends State<LatestTvShowPartTablet> {
-  @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,8 +21,8 @@ class _LatestTvShowPartTabletState extends State<LatestTvShowPartTablet> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: const [
               CustomSectionTitle(
-                buttonIconWidth: 14,
-                titleTextSize: 24,
+                buttonIconWidth: 16,
+                titleTextSize: 26,
                 title: 'LATEST TV SHOWS',
               ),
               SizedBox(
@@ -39,11 +33,9 @@ class _LatestTvShowPartTabletState extends State<LatestTvShowPartTablet> {
         ),
         CustomGridViewBuilder(
           horizontalSpacing: 10,
-          childHeight: screenWidth >= 1080
-              ? MediaQuery.of(context).size.width / 2.9
-              : MediaQuery.of(context).size.width / 2.3,
-          chilAmountPerRow: screenWidth >= 1080 ? 5 : 4,
-          childAmount: 12,
+          childHeight: MediaQuery.of(context).size.width / 4,
+          chilAmountPerRow: 5,
+          childAmount: 10,
           itemBuilder: (context, index) {
             return const CustomMovieCardInGrid(
               movieTitle: 'Blue Beetle',

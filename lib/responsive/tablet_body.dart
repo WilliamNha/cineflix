@@ -281,6 +281,9 @@ class _TabletBodyState extends State<TabletBody> {
                 const Top10PartTablet(),
                 // recently updated
                 const RecentlyUpdatedPartTablet(),
+                const SizedBox(
+                  height: 30,
+                )
               ],
             ),
           ),
