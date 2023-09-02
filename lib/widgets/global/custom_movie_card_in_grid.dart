@@ -36,7 +36,7 @@ class _CustomMovieCardInGridState extends State<CustomMovieCardInGrid> {
 
     entry = OverlayEntry(
         builder: (context) => Positioned(
-
+            //update
             // top: offset.dy + (size.height / 3),
             // left: offset.dx + size.width + 20,
             child: CompositedTransformFollower(
