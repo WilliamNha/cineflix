@@ -3,6 +3,7 @@ import 'package:cineflix/constants/app_constants.dart';
 import 'package:cineflix/widgets/global/custom_bookmark_button.dart';
 import 'package:cineflix/widgets/global/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class MovieHeadDesktop extends StatelessWidget {
   const MovieHeadDesktop({
@@ -189,13 +190,17 @@ class MovieHeadDesktop extends StatelessWidget {
                   width: 400,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
-                      SizedBox(
+                    children: [
+                      const SizedBox(
                         width: 15,
                       ),
-                      CustomWatchNowButton(),
-                      CustomBookmarkButton(),
-                      SizedBox(
+                      CustomWatchNowButton(
+                        onTap: () {
+                          context.go('/movie_detail');
+                        },
+                      ),
+                      const CustomBookmarkButton(),
+                      const SizedBox(
                         width: 20,
                       ),
                     ],

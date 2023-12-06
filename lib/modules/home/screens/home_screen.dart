@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:cineflix/responsive/desktop_body.dart';
-import 'package:cineflix/responsive/mobile_body.dart';
-
+import 'package:cineflix/modules/home/screens/home_desktop_body.dart';
+import 'package:cineflix/modules/home/screens/home_mobile_body.dart';
 import 'package:cineflix/responsive/responsive_layout.dart';
-import 'package:cineflix/responsive/tablet_body.dart';
+import 'package:cineflix/modules/home/screens/home_tablet_body.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -12,9 +11,9 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: ResponsiveLayout(
-          mobileBody: MobileBody(),
-          tabletBody: TabletBody(),
-          desktopBody: DesktopBody()),
+          mobileBody: HomeMobileBody(),
+          tabletBody: HomeTabletBody(),
+          desktopBody: HomeDesktopBody()),
     );
   }
 }

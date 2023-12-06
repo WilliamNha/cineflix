@@ -3,6 +3,7 @@ import 'package:cineflix/widgets/global/custom_button.dart';
 import 'package:dotted_border/dotted_border.dart';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomMovieCardInGrid extends StatefulWidget {
   final String movieTitle;
@@ -49,27 +50,7 @@ class _CustomMovieCardInGridState extends State<CustomMovieCardInGrid> {
 
   Widget buildOverlay() => Material(
         type: MaterialType.transparency,
-        // child:
-        // InkWell(
-        //   splashColor: Colors.transparent,
-        //   highlightColor: Colors.transparent,
-        //   onTap: () {},
-        //   onHover: (isHovered) {
-        //     if (isHovered) {
-        //       setState(() {
-        //         isDetailBannerOnHovered = true;
-        //       });
-        //     } else {
-        //       setState(() {
-        //         isDetailBannerOnHovered = false;
-        //       });
-        //       Future.delayed(const Duration(milliseconds: 100), () {
-        //         setState(() {
-        //           entry!.remove();
-        //         });
-        //       });
-        //     }
-        //   },
+
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -336,7 +317,9 @@ class _CustomMovieCardInGridState extends State<CustomMovieCardInGrid> {
           entry!.remove();
         }
       },
-      onTap: () {},
+      onTap: () {
+        context.go('/movie_detail');
+      },
       child: CompositedTransformTarget(
         link: layerLink,
         child: Column(

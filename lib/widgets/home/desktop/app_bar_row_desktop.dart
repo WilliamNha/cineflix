@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AppBarRowDesktop extends StatelessWidget {
+  final bool isInMovieDetail;
   const AppBarRowDesktop({
+    this.isInMovieDetail = false,
     super.key,
   });
 
@@ -36,7 +38,9 @@ class AppBarRowDesktop extends StatelessWidget {
             child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
           decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.6),
+              color: isInMovieDetail
+                  ? const Color(0xff2A2A2A)
+                  : Colors.black.withOpacity(0.6),
               borderRadius: BorderRadius.circular(20)),
           margin: EdgeInsets.symmetric(
               horizontal: MediaQuery.of(context).size.width / 6),
@@ -49,7 +53,9 @@ class AppBarRowDesktop extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: const Color(0xff353535)),
+                    color: isInMovieDetail
+                        ? Colors.black
+                        : const Color(0xff353535)),
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -103,11 +109,8 @@ class AppBarRowDesktop extends StatelessWidget {
           ),
         )),
         const Padding(
-          padding: EdgeInsets.only(right: 15),
+          padding: EdgeInsets.only(right: 20),
           child: CustomLoginButton(),
-        ),
-        const SizedBox(
-          width: 20,
         ),
       ],
     );

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:cineflix/constants/app_color.dart';
 
 class CustomWatchNowButton extends StatefulWidget {
+  final Function? onTap;
   final double buttonHeight;
   final double borderRadius;
   const CustomWatchNowButton({
+    this.onTap,
     this.buttonHeight = 50,
     this.borderRadius = 25,
     super.key,
@@ -25,7 +27,9 @@ class _CustomWatchNowButtonState extends State<CustomWatchNowButton> {
             isHovered = onHover;
           });
         },
-        onTap: () {},
+        onTap: () {
+          widget.onTap!();
+        },
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           height: widget.buttonHeight,

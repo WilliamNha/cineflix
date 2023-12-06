@@ -1,6 +1,7 @@
 import 'package:cineflix/constants/app_color.dart';
 import 'package:cineflix/constants/app_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomTrendingMovieCardMobile extends StatefulWidget {
   final double height;
@@ -29,7 +30,9 @@ class _CustomTrendingMovieCardMobileState
           isOnHovered = isHovered;
         });
       },
-      onTap: () {},
+      onTap: () {
+        context.go('/movie_detail');
+      },
       child: Stack(
         children: [
           Container(

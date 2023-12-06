@@ -1,5 +1,6 @@
 import 'package:cineflix/constants/app_color.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomMovieCardLong extends StatefulWidget {
   final bool isHasCircleNumber;
@@ -19,7 +20,9 @@ class _CustomMovieCardLongState extends State<CustomMovieCardLong> {
     return InkWell(
       highlightColor: Colors.transparent,
       splashColor: Colors.transparent,
-      onTap: () {},
+      onTap: () {
+        context.go('/movie_detail');
+      },
       onHover: (isHovered) {
         setState(() {
           isOnHovered = isHovered;

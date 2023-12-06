@@ -14,14 +14,14 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
-class DesktopBody extends StatefulWidget {
-  const DesktopBody({super.key});
+class HomeDesktopBody extends StatefulWidget {
+  const HomeDesktopBody({super.key});
 
   @override
-  State<DesktopBody> createState() => _DesktopBodyState();
+  State<HomeDesktopBody> createState() => _HomeDesktopBodyState();
 }
 
-class _DesktopBodyState extends State<DesktopBody> {
+class _HomeDesktopBodyState extends State<HomeDesktopBody> {
   int pageCurrentIndex = 0;
   int trendingSlideIndex = 0;
   var trendingController = PageController(viewportFraction: 1 / 3);

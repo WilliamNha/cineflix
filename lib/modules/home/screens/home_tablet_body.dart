@@ -15,14 +15,14 @@ import 'package:cineflix/widgets/home/tablet/top_9_part_tablet.dart';
 import 'package:flutter/material.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
-class TabletBody extends StatefulWidget {
-  const TabletBody({super.key});
+class HomeTabletBody extends StatefulWidget {
+  const HomeTabletBody({super.key});
 
   @override
-  State<TabletBody> createState() => _TabletBodyState();
+  State<HomeTabletBody> createState() => _HomeTabletBodyState();
 }
 
-class _TabletBodyState extends State<TabletBody> {
+class _HomeTabletBodyState extends State<HomeTabletBody> {
   int pageCurrentIndex = 0;
   int trendingSlideIndex = 0;
   var trendingController = PageController(viewportFraction: 1 / 2);

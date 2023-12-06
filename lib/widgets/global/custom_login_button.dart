@@ -2,7 +2,9 @@ import 'package:cineflix/constants/app_color.dart';
 import 'package:flutter/material.dart';
 
 class CustomLoginButton extends StatefulWidget {
+  final bool isInMovieDetail;
   const CustomLoginButton({
+    this.isInMovieDetail = false,
     super.key,
   });
 
@@ -30,7 +32,9 @@ class _CustomLoginButtonState extends State<CustomLoginButton> {
                 width: 2,
                 color: isOnHovered
                     ? AppColor.onHoveredColor
-                    : Colors.white.withOpacity(0.7)),
+                    : widget.isInMovieDetail
+                        ? Colors.white
+                        : Colors.white.withOpacity(0.7)),
             color: isOnHovered
                 ? AppColor.onHoveredColor
                 : Colors.black.withOpacity(0.2),
@@ -45,7 +49,9 @@ class _CustomLoginButtonState extends State<CustomLoginButton> {
               style: TextStyle(
                   color: isOnHovered
                       ? Colors.black54
-                      : Colors.white.withOpacity(0.7),
+                      : widget.isInMovieDetail
+                          ? Colors.white
+                          : Colors.white.withOpacity(0.7),
                   fontSize: 16,
                   fontWeight: FontWeight.bold),
             ),
@@ -54,8 +60,11 @@ class _CustomLoginButtonState extends State<CustomLoginButton> {
             ),
             Icon(
               Icons.arrow_forward,
-              color:
-                  isOnHovered ? Colors.black54 : Colors.white.withOpacity(0.7),
+              color: isOnHovered
+                  ? Colors.black54
+                  : widget.isInMovieDetail
+                      ? Colors.white
+                      : Colors.white.withOpacity(0.7),
               size: 16,
             )
           ],

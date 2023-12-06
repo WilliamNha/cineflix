@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:cineflix/config/router/routes.dart';
 import 'package:url_strategy/url_strategy.dart';
+
+import 'config/router/routes.dart';
 
 void main() {
   setPathUrlStrategy();
@@ -12,9 +13,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      routeInformationProvider: router.routeInformationProvider,
-      routeInformationParser: router.routeInformationParser,
-      routerDelegate: router.routerDelegate,
+      routerConfig: AppRouter.router,
+      // routeInformationProvider: AppRouter.router.routeInformationProvider,
+      // routeInformationParser: AppRouter.router.routeInformationParser,
+      // routerDelegate: AppRouter.router.routerDelegate,
       debugShowCheckedModeBanner: false,
     );
   }

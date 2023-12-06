@@ -1,6 +1,4 @@
 import 'package:cineflix/constants/app_color.dart';
-import 'package:cineflix/widgets/global/custom_movie_card_long.dart';
-import 'package:cineflix/widgets/global/custom_section_title.dart';
 import 'package:cineflix/widgets/home/mobile/app_bar_row_mobile.dart';
 import 'package:cineflix/widgets/home/mobile/latest_movies_part_mobile.dart';
 import 'package:cineflix/widgets/home/mobile/movie_header_mobile.dart';
@@ -11,14 +9,14 @@ import 'package:cineflix/widgets/home/mobile/trending_now_part_mobile.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-class MobileBody extends StatefulWidget {
-  const MobileBody({super.key});
+class HomeMobileBody extends StatefulWidget {
+  const HomeMobileBody({super.key});
 
   @override
-  State<MobileBody> createState() => _MobileBodyState();
+  State<HomeMobileBody> createState() => _HomeMobileBodyState();
 }
 
-class _MobileBodyState extends State<MobileBody> {
+class _HomeMobileBodyState extends State<HomeMobileBody> {
   final PageController movieHeaderController = PageController();
   final ScrollController _controller = ScrollController();
   @override
