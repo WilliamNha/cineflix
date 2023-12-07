@@ -1,3 +1,4 @@
+import 'package:cineflix/modules/home/models/movie_model.dart';
 import 'package:cineflix/widgets/global/custom_grid_view_builder.dart';
 import 'package:cineflix/widgets/global/custom_movie_card_in_grid.dart';
 import 'package:cineflix/widgets/global/custom_movie_type_selection_button.dart';
@@ -5,7 +6,9 @@ import 'package:cineflix/widgets/global/custom_section_title.dart';
 import 'package:flutter/material.dart';
 
 class RecommendedPartDesktop extends StatefulWidget {
+  final List<MovieModel> movieList;
   const RecommendedPartDesktop({
+    required this.movieList,
     super.key,
   });
 
@@ -71,11 +74,11 @@ class _RecommendedPartDesktopState extends State<RecommendedPartDesktop> {
             horizontalSpacing: 10,
             childHeight: MediaQuery.of(context).size.width / 4,
             chilAmountPerRow: 5,
-            childAmount: 10,
+            childAmount: widget.movieList.length,
             itemBuilder: (context, index) {
-              return const CustomMovieCardInGrid(
-                movieTitle: 'Blue Beetle',
-                imageUrl: 'images/blue_beetle.jpg',
+              final movie = widget.movieList[index];
+              return CustomMovieCardInGrid(
+                movieData: movie,
               );
             },
           ),

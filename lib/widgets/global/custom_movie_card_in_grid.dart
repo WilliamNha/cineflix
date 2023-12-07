@@ -1,4 +1,6 @@
 import 'package:cineflix/constants/app_color.dart';
+import 'package:cineflix/constants/app_constants.dart';
+import 'package:cineflix/modules/home/models/movie_model.dart';
 import 'package:cineflix/widgets/global/custom_button.dart';
 import 'package:dotted_border/dotted_border.dart';
 
@@ -6,11 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class CustomMovieCardInGrid extends StatefulWidget {
-  final String movieTitle;
-  final String imageUrl;
+  final MovieModel movieData;
   const CustomMovieCardInGrid({
-    required this.movieTitle,
-    required this.imageUrl,
+    required this.movieData,
     super.key,
   });
 
@@ -68,15 +68,15 @@ class _CustomMovieCardInGridState extends State<CustomMovieCardInGrid> {
                     children: [
                       Padding(
                         padding:
-                            const EdgeInsets.only(left: 20, top: 20, right: 20),
+                            const EdgeInsets.only(left: 20, top: 16, right: 20),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const Expanded(
+                            Expanded(
                               child: Text(
-                                'Blue Beetle',
-                                style: TextStyle(
+                                widget.movieData.name!,
+                                style: const TextStyle(
                                     fontSize: 18,
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),
@@ -142,7 +142,7 @@ class _CustomMovieCardInGridState extends State<CustomMovieCardInGrid> {
                                   borderRadius: BorderRadius.circular(12)),
                               child: Center(
                                 child: Text(
-                                  'PG-13',
+                                  widget.movieData.type!,
                                   style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold,
@@ -172,7 +172,7 @@ class _CustomMovieCardInGridState extends State<CustomMovieCardInGrid> {
                                   width: 2,
                                 ),
                                 Text(
-                                  '4',
+                                  widget.movieData.rating!,
                                   style: TextStyle(
                                       color: AppColor.primaryColor,
                                       fontSize: 12),
@@ -185,7 +185,7 @@ class _CustomMovieCardInGridState extends State<CustomMovieCardInGrid> {
                             Row(
                               children: [
                                 Text(
-                                  '116 min',
+                                  '${widget.movieData.duration} min',
                                   style: TextStyle(
                                       color: AppColor.primaryColor,
                                       fontSize: 12),
@@ -208,14 +208,14 @@ class _CustomMovieCardInGridState extends State<CustomMovieCardInGrid> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text(
+                          children: [
+                            const Text(
                               'Country: ',
                               style: TextStyle(color: Colors.grey),
                             ),
                             Text(
-                              'United States',
-                              style: TextStyle(color: Colors.white),
+                              '${widget.movieData.country}',
+                              style: const TextStyle(color: Colors.white),
                             )
                           ],
                         ),
@@ -232,7 +232,7 @@ class _CustomMovieCardInGridState extends State<CustomMovieCardInGrid> {
                               style: TextStyle(color: Colors.grey),
                             ),
                             Text(
-                              'Action, Adventure, Sci-Fi',
+                              'Action',
                               style: TextStyle(color: Colors.white),
                             )
                           ],
@@ -246,14 +246,14 @@ class _CustomMovieCardInGridState extends State<CustomMovieCardInGrid> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text(
+                          children: [
+                            const Text(
                               'Scores: ',
                               style: TextStyle(color: Colors.grey),
                             ),
                             Text(
-                              '7.23 by 342 reviews',
-                              style: TextStyle(color: Colors.grey),
+                              '${widget.movieData.rating} by 342 reviews',
+                              style: const TextStyle(color: Colors.grey),
                             )
                           ],
                         ),
@@ -261,16 +261,16 @@ class _CustomMovieCardInGridState extends State<CustomMovieCardInGrid> {
                       //description
                       Padding(
                         padding: const EdgeInsets.only(
-                            top: 20, bottom: 20, left: 20, right: 20),
+                            top: 16, bottom: 16, left: 20, right: 20),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             Expanded(
                               child: Text(
-                                'An alien scarab chooses college graduate Jaime Reyes to be its symbiotic host, bestowing the teenager with a suit of armor that',
+                                '${widget.movieData.description}',
                                 maxLines: 3,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.grey,
                                     overflow: TextOverflow.ellipsis),
                               ),
@@ -335,7 +335,8 @@ class _CustomMovieCardInGridState extends State<CustomMovieCardInGrid> {
                   Container(
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage(widget.imageUrl),
+                            image: NetworkImage(
+                                "${AppConstant.baseUrl}/uploads/${widget.movieData.image!}"),
                             fit: BoxFit.fill),
                         borderRadius: BorderRadius.circular(8)),
                     width: double.infinity,
@@ -413,7 +414,7 @@ class _CustomMovieCardInGridState extends State<CustomMovieCardInGrid> {
             ),
             Expanded(
               child: Text(
-                widget.movieTitle,
+                widget.movieData.name!,
                 style: TextStyle(
                     color: isOnHovered ? AppColor.onHoveredColor : Colors.white,
                     fontSize: 14),

@@ -1,10 +1,14 @@
+import 'package:cineflix/constants/app_constants.dart';
+import 'package:cineflix/modules/home/models/movie_model.dart';
 import 'package:cineflix/widgets/global/custom_movie_card_long.dart';
 import 'package:cineflix/widgets/global/custom_movie_type_selection_button.dart';
 import 'package:cineflix/widgets/global/custom_section_title.dart';
 import 'package:flutter/material.dart';
 
 class Top10PartTablet extends StatefulWidget {
+  final List<MovieModel> movieList;
   const Top10PartTablet({
+    required this.movieList,
     super.key,
   });
 
@@ -77,24 +81,20 @@ class _Top10PartTabletState extends State<Top10PartTablet> {
             ],
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.only(bottom: 10),
-          child: CustomMovieCardLong(
-            isHasCircleNumber: true,
+        for (var index = 0; index < widget.movieList.length; index++)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: CustomMovieCardLong(
+              name: widget.movieList[index].name!,
+              type: widget.movieList[index].type!,
+              image:
+                  "${AppConstant.baseUrl}/uploads/${widget.movieList[index].image!}",
+              year: "2023",
+              duration: widget.movieList[index].duration!,
+              number: index + 1,
+              isHasCircleNumber: true,
+            ),
           ),
-        ),
-        const Padding(
-          padding: EdgeInsets.only(bottom: 10),
-          child: CustomMovieCardLong(
-            isHasCircleNumber: true,
-          ),
-        ),
-        const Padding(
-          padding: EdgeInsets.only(bottom: 10),
-          child: CustomMovieCardLong(
-            isHasCircleNumber: true,
-          ),
-        ),
         const SizedBox(
           height: 20,
         ),

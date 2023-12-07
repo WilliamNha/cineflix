@@ -16,10 +16,10 @@ class _CustomMoviesCategoryButtonState
     extends State<CustomMoviesCategoryButton> {
   bool isOnHovered = false;
   final List<String> items = [
-    'Item1',
-    'Item2',
-    'Item3',
-    'Item4',
+    'Action',
+    'Adventure',
+    'Horror',
+    'Sci-fi',
   ];
   String? selectedValue;
   @override

@@ -1,9 +1,13 @@
+import 'package:cineflix/constants/app_constants.dart';
+import 'package:cineflix/modules/home/models/movie_model.dart';
 import 'package:cineflix/widgets/global/custom_movie_card_long.dart';
 import 'package:cineflix/widgets/global/custom_section_title.dart';
 import 'package:flutter/material.dart';
 
 class RecentlyUpdatedDesktop extends StatelessWidget {
+  final List<MovieModel> movieList;
   const RecentlyUpdatedDesktop({
+    required this.movieList,
     super.key,
   });
 
@@ -32,12 +36,32 @@ class RecentlyUpdatedDesktop extends StatelessWidget {
           ),
         ),
         for (var i = 0; i < 6; i++)
-          const Padding(
-            padding: EdgeInsets.only(bottom: 10),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10),
             child: CustomMovieCardLong(
-              isHasCircleNumber: false,
+              number: i + 1,
+              duration: movieList[i].duration!,
+              year: movieList[i].release!.split(",")[1].replaceAll(" ", ''),
+              type: movieList[i].type!,
+              name: movieList[i].name!,
+              image: "${AppConstant.baseUrl}/uploads/${movieList[i].image}",
+              isHasCircleNumber: true,
             ),
           ),
+
+        //   for (var i = 0; i < movieList.length; i++)
+        // Padding(
+        //   padding: const EdgeInsets.only(bottom: 10),
+        //   child: CustomMovieCardLong(
+        //     number: i + 1,
+        //     duration: movieList[i].duration!,
+        //     year: movieList[i].release!.split(",")[1].replaceAll(" ", ''),
+        //     type: movieList[i].type!,
+        //     name: movieList[i].name!,
+        //     image: "${AppConstant.baseUrl}/uploads/${movieList[i].image}",
+        //     isHasCircleNumber: true,
+        //   ),
+        // ),
       ],
     );
   }

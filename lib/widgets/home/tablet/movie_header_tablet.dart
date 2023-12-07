@@ -1,12 +1,15 @@
 import 'package:cineflix/constants/app_color.dart';
 import 'package:cineflix/constants/app_constants.dart';
+import 'package:cineflix/modules/home/models/movie_model.dart';
 import 'package:cineflix/widgets/global/custom_bookmark_button.dart';
 import 'package:cineflix/widgets/global/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class MovieHeadTablet extends StatelessWidget {
+  final MovieModel movieData;
   const MovieHeadTablet({
+    required this.movieData,
     super.key,
   });
 
@@ -19,8 +22,8 @@ class MovieHeadTablet extends StatelessWidget {
           width: double.infinity,
           height: 590,
           decoration: const BoxDecoration(),
-          child: Image.asset(
-            'images/meg2.jpeg',
+          child: Image.network(
+            '${AppConstant.baseUrl}/uploads/${movieData.imageBanner}',
             fit: BoxFit.cover,
           ),
         ),
@@ -51,14 +54,14 @@ class MovieHeadTablet extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Padding(
-                  padding: EdgeInsets.only(left: 20),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20),
                   child: Text(
-                    'MEG 2: THE TRENCH',
-                    style: TextStyle(
+                    movieData.name!,
+                    style: const TextStyle(
                         fontSize: 28,
                         color: Colors.white,
-                        fontFamily: hanlyFont),
+                        fontFamily: AppConstant.hanlyFont),
                   ),
                 ),
                 const SizedBox(
@@ -95,10 +98,10 @@ class MovieHeadTablet extends StatelessWidget {
                             border: Border.all(color: Colors.white, width: 1),
                             color: Colors.transparent,
                             borderRadius: BorderRadius.circular(12)),
-                        child: const Center(
+                        child: Center(
                           child: Text(
-                            'PG-13',
-                            style: TextStyle(
+                            movieData.ratingType!,
+                            style: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white),
@@ -127,41 +130,41 @@ class MovieHeadTablet extends StatelessWidget {
                       const SizedBox(
                         width: 12,
                       ),
-                      const Text(
-                        '2023',
-                        style: TextStyle(color: Colors.white, fontSize: 14),
+                      Text(
+                        movieData.release!.split(",")[1].replaceAll(" ", ''),
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 14),
                       ),
                       const SizedBox(
                         width: 12,
                       ),
                       Row(
-                        children: const [
+                        children: [
                           Text(
-                            '116 min',
-                            style: TextStyle(color: Colors.white, fontSize: 14),
+                            '${movieData.duration} min',
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 14),
                           )
                         ],
                       ),
                       const SizedBox(
                         width: 12,
                       ),
-                      const Text(
-                        'Adventure',
-                        style: TextStyle(fontSize: 14, color: Colors.white),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      const Text(
-                        'Action',
-                        style: TextStyle(fontSize: 14, color: Colors.white),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      const Text(
-                        'Horror',
-                        style: TextStyle(fontSize: 14, color: Colors.white),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: movieData.genre!.map(
+                          (e) {
+                            return Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: Text(
+                                e.name.toString(),
+                                style: const TextStyle(
+                                    fontSize: 14, color: Colors.white),
+                              ),
+                            );
+                          },
+                        ).toList(),
                       ),
                     ],
                   ),
@@ -169,12 +172,12 @@ class MovieHeadTablet extends StatelessWidget {
                 screenWidth >= 1080
                     ? SizedBox(
                         width: MediaQuery.of(context).size.width,
-                        child: const Padding(
-                          padding:
-                              EdgeInsets.only(left: 20, top: 15, right: 150),
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 20, top: 15, right: 150),
                           child: Text(
-                            'Meg 2: The Trench is a 2023 science fiction action film directed by Ben Wheatley from a screenplay by Jon Hoeber, Erich Hoeber, and Dean Georgaris.',
-                            style: TextStyle(
+                            movieData.description!,
+                            style: const TextStyle(
                                 height: 1.5,
                                 color: Colors.grey,
                                 fontSize: 16,

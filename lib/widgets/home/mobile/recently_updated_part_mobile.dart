@@ -22,11 +22,11 @@ class RecentlyUpdatedPartMobile extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        for (var i = 0; i < 4; i++)
-          const Padding(
-            padding: EdgeInsets.only(bottom: 10),
-            child: CustomMovieCardLong(),
-          ),
+        // for (var i = 0; i < 4; i++)
+        //   const Padding(
+        //     padding: EdgeInsets.only(bottom: 10),
+        //     child: CustomMovieCardLong(),
+        //   ),
       ],
     );
   }

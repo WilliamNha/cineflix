@@ -60,7 +60,7 @@ class _CustomBackAndNextButtonsMovieSliderState
         InkWell(
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
-          onTap: widget.currentIndex == 3 ? null : widget.onNextButtonTapped,
+          onTap: widget.currentIndex == 4 ? null : widget.onNextButtonTapped,
           onHover: (isHovered) {
             setState(() {
               isRightButtonHovered = isHovered;
@@ -70,7 +70,7 @@ class _CustomBackAndNextButtonsMovieSliderState
             // width: 500,
             padding: const EdgeInsets.all(2),
             decoration: BoxDecoration(
-                color: widget.currentIndex == 3
+                color: widget.currentIndex == 4
                     ? Colors.white.withOpacity(0.15)
                     : isRightButtonHovered
                         ? AppColor.onHoveredColor

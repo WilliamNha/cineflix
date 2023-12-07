@@ -1,10 +1,13 @@
+import 'package:cineflix/modules/home/models/movie_model.dart';
 import 'package:cineflix/widgets/global/custom_grid_view_builder.dart';
 import 'package:cineflix/widgets/global/custom_movie_card_in_grid.dart';
 import 'package:cineflix/widgets/global/custom_section_title.dart';
 import 'package:flutter/material.dart';
 
 class LatestMoviesPartMobile extends StatelessWidget {
+  final List<MovieModel>? movieList;
   const LatestMoviesPartMobile({
+    this.movieList,
     super.key,
   });
 
@@ -31,9 +34,9 @@ class LatestMoviesPartMobile extends StatelessWidget {
           chilAmountPerRow: screenWidth < 480 ? 2 : 3,
           childAmount: 6,
           itemBuilder: (context, index) {
-            return const CustomMovieCardInGrid(
-              movieTitle: 'Elemental',
-              imageUrl: 'images/elemental.jpeg',
+            final movie = movieList![index];
+            return CustomMovieCardInGrid(
+              movieData: movie,
             );
           },
         ),

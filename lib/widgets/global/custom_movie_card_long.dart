@@ -3,8 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class CustomMovieCardLong extends StatefulWidget {
+  final String name;
+  final String image;
+  final String type;
+  final String year;
+  final String duration;
   final bool isHasCircleNumber;
+  final int number;
   const CustomMovieCardLong({
+    required this.name,
+    required this.image,
+    required this.type,
+    required this.year,
+    required this.duration,
+    required this.number,
     this.isHasCircleNumber = false,
     super.key,
   });
@@ -52,11 +64,10 @@ class _CustomMovieCardLongState extends State<CustomMovieCardLong> {
                     )
                   : const SizedBox(),
               Container(
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage('images/elemental.jpeg'),
-                        fit: BoxFit.fill),
-                    borderRadius: BorderRadius.only(
+                        image: NetworkImage(widget.image), fit: BoxFit.fill),
+                    borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(8),
                         bottomLeft: Radius.circular(8)),
                     color: Colors.red),
@@ -78,7 +89,7 @@ class _CustomMovieCardLongState extends State<CustomMovieCardLong> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'MOVIE  /  2023  /  127 min',
+                          '${widget.type}  /  2023  /  ${widget.duration} min',
                           style: TextStyle(
                               color: isOnHovered ? Colors.black : Colors.grey,
                               fontSize: 10),
@@ -87,7 +98,7 @@ class _CustomMovieCardLongState extends State<CustomMovieCardLong> {
                           height: 5,
                         ),
                         Text(
-                          'Elemental',
+                          widget.name,
                           style: TextStyle(
                               color: isOnHovered ? Colors.black : Colors.white,
                               fontSize: 14),
@@ -114,7 +125,7 @@ class _CustomMovieCardLongState extends State<CustomMovieCardLong> {
                             Border.all(color: AppColor.primaryColor, width: 2)),
                     child: Center(
                       child: Text(
-                        '1',
+                        widget.number.toString(),
                         style: TextStyle(
                             color: isOnHovered
                                 ? Colors.black

@@ -1,10 +1,13 @@
+import 'package:cineflix/modules/home/models/movie_model.dart';
 import 'package:cineflix/widgets/global/custom_grid_view_builder.dart';
 import 'package:cineflix/widgets/global/custom_movie_card_in_grid.dart';
 import 'package:cineflix/widgets/global/custom_section_title.dart';
 import 'package:flutter/material.dart';
 
 class LatestTvShowPartDesktop extends StatelessWidget {
+  final List<MovieModel>? movieList;
   const LatestTvShowPartDesktop({
+    this.movieList,
     super.key,
   });
 
@@ -35,11 +38,11 @@ class LatestTvShowPartDesktop extends StatelessWidget {
           horizontalSpacing: 10,
           childHeight: MediaQuery.of(context).size.width / 4,
           chilAmountPerRow: 5,
-          childAmount: 10,
+          childAmount: movieList!.length,
           itemBuilder: (context, index) {
-            return const CustomMovieCardInGrid(
-              movieTitle: 'Blue Beetle',
-              imageUrl: 'images/blue_beetle.jpg',
+            final movie = movieList![index];
+            return CustomMovieCardInGrid(
+              movieData: movie,
             );
           },
         ),

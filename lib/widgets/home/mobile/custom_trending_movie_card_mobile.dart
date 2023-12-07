@@ -1,12 +1,15 @@
 import 'package:cineflix/constants/app_color.dart';
 import 'package:cineflix/constants/app_constants.dart';
+import 'package:cineflix/modules/home/models/movie_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class CustomTrendingMovieCardMobile extends StatefulWidget {
+  final MovieModel movieData;
   final double height;
   final double width;
   const CustomTrendingMovieCardMobile({
+    required this.movieData,
     this.width = double.infinity,
     super.key,
     this.height = 170,
@@ -40,8 +43,9 @@ class _CustomTrendingMovieCardMobileState
             width: widget.width,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                image: const DecorationImage(
-                    image: AssetImage('images/spider-man.png'),
+                image: DecorationImage(
+                    image: NetworkImage(
+                        '${AppConstant.baseUrl}/uploads/${widget.movieData.imageBanner}'),
                     fit: BoxFit.cover)),
             margin: const EdgeInsets.symmetric(vertical: 5),
           ),
@@ -85,50 +89,32 @@ class _CustomTrendingMovieCardMobileState
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      const Text(
-                        'SPIDER-MAN: ACCROSS THE SPIDER-VERSE',
-                        style: TextStyle(
+                      Text(
+                        widget.movieData.name!,
+                        style: const TextStyle(
                             color: Colors.white,
                             fontSize: 15,
-                            fontFamily: hanlyFont),
+                            fontFamily: AppConstant.hanlyFont),
                       ),
                       const SizedBox(
                         height: 5,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 15),
-                            child: Text(
-                              'Animation',
-                              style: TextStyle(
-                                  color: AppColor.onHoveredColor,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 15),
-                            child: Text(
-                              'Comedy',
-                              style: TextStyle(
-                                  color: AppColor.onHoveredColor,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 15),
-                            child: Text(
-                              'Adventure',
-                              style: TextStyle(
-                                  color: AppColor.onHoveredColor,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ],
+                        children: widget.movieData.genre!
+                            .map(
+                              (e) => Padding(
+                                padding: const EdgeInsets.only(right: 15),
+                                child: Text(
+                                  '${e.name}',
+                                  style: TextStyle(
+                                      color: AppColor.onHoveredColor,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            )
+                            .toList(),
                       ),
                     ]),
               ),

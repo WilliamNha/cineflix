@@ -37,7 +37,7 @@ class CustomSectionTitle extends StatelessWidget {
         Text(
           title,
           style: TextStyle(
-              fontFamily: hanlyFont,
+              fontFamily: AppConstant.hanlyFont,
               fontSize: titleTextSize,
               color: Colors.white),
         ),

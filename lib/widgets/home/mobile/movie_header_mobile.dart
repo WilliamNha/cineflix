@@ -1,12 +1,15 @@
 import 'package:cineflix/constants/app_color.dart';
 import 'package:cineflix/constants/app_constants.dart';
+import 'package:cineflix/modules/home/models/movie_model.dart';
 import 'package:cineflix/widgets/global/custom_bookmark_button.dart';
 import 'package:cineflix/widgets/global/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class MovieHeadMobile extends StatelessWidget {
+  final MovieModel movieData;
   const MovieHeadMobile({
+    required this.movieData,
     super.key,
   });
 
@@ -18,8 +21,8 @@ class MovieHeadMobile extends StatelessWidget {
           width: double.infinity,
           height: MediaQuery.of(context).size.height / 1.7,
           decoration: const BoxDecoration(),
-          child: Image.asset(
-            'images/meg2.jpeg',
+          child: Image.network(
+            "${AppConstant.baseUrl}/uploads/${movieData.image}",
             fit: BoxFit.cover,
           ),
         ),
@@ -68,10 +71,12 @@ class MovieHeadMobile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Text(
-                  'MEG 2: THE TRENCH',
-                  style: TextStyle(
-                      fontSize: 20, color: Colors.white, fontFamily: hanlyFont),
+                Text(
+                  movieData.name!,
+                  style: const TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontFamily: AppConstant.hanlyFont),
                 ),
                 const SizedBox(
                   height: 10,
@@ -105,10 +110,10 @@ class MovieHeadMobile extends StatelessWidget {
                           border: Border.all(color: Colors.white, width: 1),
                           color: Colors.transparent,
                           borderRadius: BorderRadius.circular(12)),
-                      child: const Center(
+                      child: Center(
                         child: Text(
-                          'PG-13',
-                          style: TextStyle(
+                          movieData.ratingType!,
+                          style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
@@ -137,18 +142,19 @@ class MovieHeadMobile extends StatelessWidget {
                     const SizedBox(
                       width: 12,
                     ),
-                    const Text(
-                      '2023',
-                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    Text(
+                      movieData.release!.split(",")[1].replaceAll(" ", ""),
+                      style: const TextStyle(color: Colors.white, fontSize: 12),
                     ),
                     const SizedBox(
                       width: 12,
                     ),
                     Row(
-                      children: const [
+                      children: [
                         Text(
-                          '116 min',
-                          style: TextStyle(color: Colors.white, fontSize: 12),
+                          '${movieData.duration} min',
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 12),
                         )
                       ],
                     ),
@@ -158,28 +164,16 @@ class MovieHeadMobile extends StatelessWidget {
                   height: 10,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text(
-                      'Adventure',
-                      style: TextStyle(fontSize: 14, color: Colors.white),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      'Action',
-                      style: TextStyle(fontSize: 14, color: Colors.white),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      'Horror',
-                      style: TextStyle(fontSize: 14, color: Colors.white),
-                    ),
-                  ],
-                ),
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: movieData.genre!.map((e) {
+                      return Padding(
+                        padding: EdgeInsets.only(right: 10),
+                        child: Text(
+                          e.name.toString(),
+                          style: TextStyle(fontSize: 14, color: Colors.white),
+                        ),
+                      );
+                    }).toList()),
                 const SizedBox(
                   height: 20,
                 ),

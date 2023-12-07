@@ -1,4 +1,3 @@
-import 'package:cineflix/widgets/global/custom_movie_card_long.dart';
 import 'package:cineflix/widgets/global/custom_section_title.dart';
 import 'package:flutter/material.dart';
 
@@ -37,24 +36,24 @@ class _RecentlyUpdatedPartTabletState extends State<RecentlyUpdatedPartTablet> {
             ],
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.only(bottom: 10),
-          child: CustomMovieCardLong(
-            isHasCircleNumber: false,
-          ),
-        ),
-        const Padding(
-          padding: EdgeInsets.only(bottom: 10),
-          child: CustomMovieCardLong(
-            isHasCircleNumber: false,
-          ),
-        ),
-        const Padding(
-          padding: EdgeInsets.only(bottom: 10),
-          child: CustomMovieCardLong(
-            isHasCircleNumber: false,
-          ),
-        ),
+        // const Padding(
+        //   padding: EdgeInsets.only(bottom: 10),
+        //   child: CustomMovieCardLong(
+        //     isHasCircleNumber: false,
+        //   ),
+        // ),
+        // const Padding(
+        //   padding: EdgeInsets.only(bottom: 10),
+        //   child: CustomMovieCardLong(
+        //     isHasCircleNumber: false,
+        //   ),
+        // ),
+        // const Padding(
+        //   padding: EdgeInsets.only(bottom: 10),
+        //   child: CustomMovieCardLong(
+        //     isHasCircleNumber: false,
+        //   ),
+        // ),
         const SizedBox(
           height: 20,
         ),

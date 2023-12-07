@@ -1,4 +1,5 @@
 import 'package:cineflix/constants/app_color.dart';
+import 'package:cineflix/modules/home/models/movie_model.dart';
 import 'package:cineflix/widgets/global/custom_trending_now_title.dart';
 import 'package:cineflix/widgets/home/mobile/custom_trending_movie_card_mobile.dart';
 import 'package:flutter/gestures.dart';
@@ -6,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 class TrendingNowPartMobile extends StatefulWidget {
+  final List<MovieModel> movieList;
   const TrendingNowPartMobile({
+    required this.movieList,
     super.key,
   });
 
@@ -58,23 +61,14 @@ class _TrendingNowPartMobileState extends State<TrendingNowPartMobile> {
               },
             ),
             scrollDirection: Axis.horizontal,
-            children: const [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: CustomTrendingMovieCardMobile(),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: CustomTrendingMovieCardMobile(),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: CustomTrendingMovieCardMobile(),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: CustomTrendingMovieCardMobile(),
-              ),
+            children: [
+              for (var index = 0; index < 5; index++)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: CustomTrendingMovieCardMobile(
+                    movieData: widget.movieList[index],
+                  ),
+                ),
             ],
           ),
         ),
