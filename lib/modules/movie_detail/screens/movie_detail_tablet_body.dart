@@ -63,8 +63,7 @@ class _MovieDetailTabletBodyState extends State<MovieDetailTabletBody> {
           } else if (state is MovieDetailLoadedSuccessState) {
             final movieData = state.movieData;
             // ignore: deprecated_member_use
-            debugPrint(
-                "video url: ${"${AppConstant.baseUrl}/uploads/${movieData.video}"}");
+
             videoController = VideoPlayerController.network(
                 "${AppConstant.baseUrl}/uploads/${movieData.video}");
             videoController!.initialize();

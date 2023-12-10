@@ -65,8 +65,7 @@ class _MovieDetailDesktopBodyState extends State<MovieDetailDesktopBody> {
             );
           } else if (state is MovieDetailLoadedSuccessState) {
             final movieData = state.movieData;
-            debugPrint(
-                "video url: ${"${AppConstant.baseUrl}/uploads/${movieData.video}"}");
+
             // ignore: deprecated_member_use
             videoController = VideoPlayerController.network(
                 "${AppConstant.baseUrl}/uploads/${movieData.video}");
