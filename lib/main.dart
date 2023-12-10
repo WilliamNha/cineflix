@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      title: "Cineflix",
       routerConfig: AppRouter.router,
       // routeInformationProvider: AppRouter.router.routeInformationProvider,
       // routeInformationParser: AppRouter.router.routeInformationParser,
