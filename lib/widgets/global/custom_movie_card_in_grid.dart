@@ -318,7 +318,7 @@ class _CustomMovieCardInGridState extends State<CustomMovieCardInGrid> {
         }
       },
       onTap: () {
-        context.go('/movie_detail');
+        context.go('/movie_detail/${widget.movieData.sId}');
       },
       child: CompositedTransformTarget(
         link: layerLink,

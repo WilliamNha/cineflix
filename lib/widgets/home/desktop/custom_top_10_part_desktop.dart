@@ -88,6 +88,7 @@ class _Top10PartDesktopState extends State<Top10PartDesktop> {
           Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: CustomMovieCardLong(
+              movieID: widget.movieList[index].sId!,
               number: index + 1,
               duration: widget.movieList[index].duration!,
               year: "2023",

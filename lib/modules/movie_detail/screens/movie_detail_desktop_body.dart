@@ -1,51 +1,208 @@
+import 'package:chewie/chewie.dart';
 import 'package:cineflix/constants/app_color.dart';
+import 'package:cineflix/constants/app_constants.dart';
+import 'package:cineflix/modules/home/models/movie_model.dart';
+import 'package:cineflix/modules/movie_detail/bloc/movie_detail_bloc.dart';
 import 'package:cineflix/widgets/global/custom_movie_title_detail_row.dart';
 import 'package:cineflix/widgets/global/custom_select_server_button.dart';
 import 'package:cineflix/widgets/home/desktop/app_bar_row_desktop.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:video_player/video_player.dart';
 
 class MovieDetailDesktopBody extends StatefulWidget {
-  const MovieDetailDesktopBody({super.key});
+  final String movieID;
+  const MovieDetailDesktopBody({super.key, required this.movieID});
 
   @override
   State<MovieDetailDesktopBody> createState() => _MovieDetailDesktopBodyState();
 }
 
 class _MovieDetailDesktopBodyState extends State<MovieDetailDesktopBody> {
+  bool playButtonClicked = false;
+  final movieDetailBloc = MovieDetailBloc();
   bool isPlayButtonHover = false;
   int serverSelectedIndex = 0;
   ScrollController controller = ScrollController();
+  VideoPlayerController? videoController;
+  ChewieController? chewieController;
+
+  @override
+  void initState() {
+    movieDetailBloc.add(MovieDetailFetchMovieEvent(movieID: widget.movieID));
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    if (videoController!.value.isPlaying) videoController!.pause();
+
+    if (chewieController!.videoPlayerController.value.isPlaying) {
+      chewieController!.videoPlayerController.pause();
+    }
+    videoController = null;
+    chewieController = null;
+    super.dispose();
+  }
+
+  // initializeVideoPlayer() async {
+  //   await videoController!.initialize();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xff181818),
-      body: RawScrollbar(
-          controller: controller,
-          thumbVisibility: true,
-          thumbColor: AppColor.onHoveredColor,
-          radius: const Radius.circular(4),
-          thickness: 8,
-          // controller: yourScrollController,
-          trackVisibility: true,
-          child: SingleChildScrollView(
-              controller: controller,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  //appbar part
-                  _buildAppBarPart(),
-                  //play movie part
-                  _buildMoviePlayPart(),
-                  //choose server part
-                  _buildChooseServerPart(),
-                  //movie detail part
-                  _buildMovieDetailPart(),
-                  const SizedBox(
-                    height: 20,
-                  )
-                ],
-              ))),
+      body: BlocConsumer<MovieDetailBloc, MovieDetailState>(
+        bloc: movieDetailBloc,
+        listener: (context, state) {},
+        builder: (context, state) {
+          if (state is MovieDetailLoadingState) {
+            return Container(
+              color: Colors.black,
+              width: double.infinity,
+              height: double.infinity,
+            );
+          } else if (state is MovieDetailLoadedSuccessState) {
+            final movieData = state.movieData;
+            debugPrint(
+                "video url: ${"${AppConstant.baseUrl}/uploads/${movieData.video}"}");
+            // ignore: deprecated_member_use
+            videoController = VideoPlayerController.network(
+                "${AppConstant.baseUrl}/uploads/${movieData.video}");
+            videoController!.initialize();
+
+            chewieController = ChewieController(
+                errorBuilder: (context, errorMessage) {
+                  debugPrint("error msg: $errorMessage");
+                  return Text(
+                    "Error: $errorMessage",
+                    style: const TextStyle(color: Colors.white),
+                  );
+                },
+                videoPlayerController: videoController!,
+                autoPlay: false,
+                looping: false,
+                aspectRatio: 16 / 9);
+            return RawScrollbar(
+                controller: controller,
+                thumbVisibility: true,
+                thumbColor: AppColor.onHoveredColor,
+                radius: const Radius.circular(4),
+                thickness: 8,
+                // controller: yourScrollController,
+                trackVisibility: true,
+                child: SingleChildScrollView(
+                    controller: controller,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        //appbar part
+                        _buildAppBarPart(),
+                        //play movie part
+                        Stack(
+                          children: [
+                            playButtonClicked == true
+                                ? AspectRatio(
+                                    aspectRatio: 16 / 9,
+                                    child:
+                                        Chewie(controller: chewieController!))
+                                : Container(
+                                    decoration: const BoxDecoration(
+                                      color: Colors.white,
+                                    ),
+                                    width: MediaQuery.of(context).size.width,
+                                    height: 450,
+                                    child: Image.network(
+                                      "${AppConstant.baseUrl}/uploads/${movieData.imageBanner}",
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                            playButtonClicked == true
+                                ? const SizedBox()
+                                : Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          const Color(0xff181818),
+                                          const Color(0xff181818)
+                                              .withOpacity(0.2),
+                                        ],
+                                        begin: Alignment.bottomCenter,
+                                        end: Alignment.topCenter,
+                                        stops: const [0, 0.2],
+                                      ),
+                                    ),
+                                    width: MediaQuery.of(context).size.width,
+                                    height: 450,
+                                  ),
+                            playButtonClicked == true
+                                ? const SizedBox()
+                                : Positioned(
+                                    top: 180,
+                                    left:
+                                        MediaQuery.of(context).size.width / 2.1,
+                                    child: InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          playButtonClicked = true;
+                                        });
+                                        Future.delayed(
+                                            const Duration(milliseconds: 500),
+                                            () {
+                                          chewieController!.play();
+                                        });
+                                      },
+                                      onHover: (value) {
+                                        setState(() {
+                                          isPlayButtonHover = value;
+                                        });
+                                      },
+                                      child: Container(
+                                        width: 60,
+                                        height: 60,
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: isPlayButtonHover
+                                                ? AppColor.onHoveredColor
+                                                : AppColor.primaryColor),
+                                        child: const Center(
+                                          child: Icon(
+                                            Icons.play_arrow_rounded,
+                                            color: Colors.black,
+                                            size: 45,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                          ],
+                        ),
+                        //choose server part
+                        _buildChooseServerPart(),
+                        //movie detail part
+                        _buildMovieDetailPart(movieData: movieData),
+                        const SizedBox(
+                          height: 20,
+                        )
+                      ],
+                    )));
+          } else {
+            return Container(
+              color: Colors.black,
+              width: double.infinity,
+              height: double.infinity,
+              child: const Center(
+                  child: Text(
+                "Something went wrong...",
+                style: TextStyle(fontSize: 24, color: Colors.white),
+              )),
+            );
+          }
+        },
+      ),
     );
   }
 
@@ -58,68 +215,6 @@ class _MovieDetailDesktopBodyState extends State<MovieDetailDesktopBody> {
           isInMovieDetail: true,
         ),
       ),
-    );
-  }
-
-  _buildMoviePlayPart() {
-    return Stack(
-      children: [
-        Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
-          width: MediaQuery.of(context).size.width,
-          height: 450,
-          child: Image.asset(
-            'assets/images/monarch2.jpeg',
-            fit: BoxFit.cover,
-          ),
-        ),
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            gradient: LinearGradient(
-              colors: [
-                const Color(0xff181818),
-                const Color(0xff181818).withOpacity(0.2),
-              ],
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,
-              stops: const [0, 0.2],
-            ),
-          ),
-          width: MediaQuery.of(context).size.width,
-          height: 450,
-        ),
-        Positioned(
-          top: 180,
-          left: MediaQuery.of(context).size.width / 2.1,
-          child: InkWell(
-            onTap: () {},
-            onHover: (value) {
-              setState(() {
-                isPlayButtonHover = value;
-              });
-            },
-            child: Container(
-              width: 60,
-              height: 60,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: isPlayButtonHover
-                      ? AppColor.onHoveredColor
-                      : AppColor.primaryColor),
-              child: const Center(
-                child: Icon(
-                  Icons.play_arrow_rounded,
-                  color: Colors.black,
-                  size: 45,
-                ),
-              ),
-            ),
-          ),
-        )
-      ],
     );
   }
 
@@ -181,7 +276,7 @@ class _MovieDetailDesktopBodyState extends State<MovieDetailDesktopBody> {
     );
   }
 
-  _buildMovieDetailPart() {
+  _buildMovieDetailPart({required MovieModel movieData}) {
     return SizedBox(
       width: double.infinity,
       child: Row(
@@ -193,8 +288,9 @@ class _MovieDetailDesktopBodyState extends State<MovieDetailDesktopBody> {
               width: 200,
               height: 280,
               decoration: BoxDecoration(
-                  image: const DecorationImage(
-                      image: AssetImage('assets/images/monarch1.jpeg'),
+                  image: DecorationImage(
+                      image: NetworkImage(
+                          '${AppConstant.baseUrl}/uploads/${movieData.image}'),
                       fit: BoxFit.cover),
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(8)),
@@ -204,9 +300,9 @@ class _MovieDetailDesktopBodyState extends State<MovieDetailDesktopBody> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "Freelance",
-                    style: TextStyle(
+                  Text(
+                    movieData.name!,
+                    style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontSize: 34),
@@ -242,10 +338,10 @@ class _MovieDetailDesktopBodyState extends State<MovieDetailDesktopBody> {
                               border: Border.all(color: Colors.white, width: 1),
                               color: Colors.transparent,
                               borderRadius: BorderRadius.circular(12)),
-                          child: const Center(
+                          child: Center(
                             child: Text(
-                              'PG-13',
-                              style: TextStyle(
+                              movieData.ratingType!,
+                              style: const TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white),
@@ -256,19 +352,19 @@ class _MovieDetailDesktopBodyState extends State<MovieDetailDesktopBody> {
                           width: 10,
                         ),
                         Row(
-                          children: const [
-                            Icon(
+                          children: [
+                            const Icon(
                               Icons.star,
                               color: Colors.white,
                               size: 16,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 2,
                             ),
                             Text(
-                              '4',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 14),
+                              movieData.rating!,
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 14),
                             )
                           ],
                         ),
@@ -276,18 +372,18 @@ class _MovieDetailDesktopBodyState extends State<MovieDetailDesktopBody> {
                           width: 12,
                         ),
                         const Text(
-                          '2023',
+                          "2023",
                           style: TextStyle(color: Colors.white, fontSize: 14),
                         ),
                         const SizedBox(
                           width: 12,
                         ),
                         Row(
-                          children: const [
+                          children: [
                             Text(
-                              '116 min',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 14),
+                              '${movieData.duration} min',
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 14),
                             )
                           ],
                         ),
@@ -297,42 +393,41 @@ class _MovieDetailDesktopBodyState extends State<MovieDetailDesktopBody> {
                       ],
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(bottom: 20),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 20, right: 20),
                     child: Text(
-                      "An ex-special forces operative takes a job to provide security for a journalist as she interviews a dictator, but when a military coup breaks out in the middle of the interview, they are forced to escape into the jungle.",
-                      style: TextStyle(
+                      movieData.description!,
+                      style: const TextStyle(
                           color: Colors.grey, fontSize: 14, height: 1.5),
                     ),
                   ),
-                  const CustomMovieTitleDetailRow(
+                  CustomMovieTitleDetailRow(
                     leftTitle: "Type: ",
-                    rightDetail: "Movie",
+                    rightDetail: movieData.type!,
                   ),
-                  const CustomMovieTitleDetailRow(
+                  CustomMovieTitleDetailRow(
                     leftTitle: "Country: ",
-                    rightDetail: "United States",
+                    rightDetail: movieData.country!,
                   ),
-                  const CustomMovieTitleDetailRow(
+                  CustomMovieTitleDetailRow(
                     leftTitle: "Genre: ",
-                    rightDetail: "Comedy, Action",
+                    rightDetail: movieData.genre![0].name!,
                   ),
-                  const CustomMovieTitleDetailRow(
+                  CustomMovieTitleDetailRow(
                     leftTitle: "Release: ",
-                    rightDetail: "Oct 27, 2023",
+                    rightDetail: movieData.release!,
                   ),
-                  const CustomMovieTitleDetailRow(
+                  CustomMovieTitleDetailRow(
                     leftTitle: "Director: ",
-                    rightDetail: "Pierre Morel",
+                    rightDetail: movieData.director!,
                   ),
-                  const CustomMovieTitleDetailRow(
+                  CustomMovieTitleDetailRow(
                     leftTitle: "Production: ",
-                    rightDetail:
-                        "AGC Studios, Endurance Media, Sentient Entertainment",
+                    rightDetail: movieData.production!,
                   ),
-                  const CustomMovieTitleDetailRow(
+                  CustomMovieTitleDetailRow(
                     leftTitle: "Cast: ",
-                    rightDetail: "John Cena, Alison Brie, Juan Pablo Raba",
+                    rightDetail: movieData.cast!,
                   )
                 ],
               ),

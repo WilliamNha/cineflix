@@ -26,10 +26,12 @@ class CustomMovieTitleDetailRow extends StatelessWidget {
               ),
             ),
           ),
-          Text(
-            rightDetail,
-            style: const TextStyle(
-              color: Colors.white,
+          Expanded(
+            child: Text(
+              rightDetail,
+              style: const TextStyle(
+                color: Colors.white,
+              ),
             ),
           ),
         ],

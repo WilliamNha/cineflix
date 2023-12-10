@@ -1,4 +1,4 @@
 class AppConstant {
   static const hanlyFont = 'HanleyPro-Sans';
-  static const baseUrl = 'http://localhost:8080';
+  static const baseUrl = "https://cineflix-api-6sgc.onrender.com";
 }

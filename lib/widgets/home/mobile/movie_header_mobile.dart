@@ -167,10 +167,11 @@ class MovieHeadMobile extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: movieData.genre!.map((e) {
                       return Padding(
-                        padding: EdgeInsets.only(right: 10),
+                        padding: const EdgeInsets.only(right: 10),
                         child: Text(
                           e.name.toString(),
-                          style: TextStyle(fontSize: 14, color: Colors.white),
+                          style: const TextStyle(
+                              fontSize: 14, color: Colors.white),
                         ),
                       );
                     }).toList()),
@@ -185,7 +186,7 @@ class MovieHeadMobile extends StatelessWidget {
                     ),
                     CustomWatchNowButton(
                       onTap: () {
-                        context.go('/movie_detail');
+                        context.go('/movie_detail/${movieData.sId}');
                       },
                     ),
                     const CustomBookmarkButton(),

@@ -10,7 +10,6 @@ part 'home_state.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeInitial()) {
     on<HomeInitialFetchMovieEvent>(homeInitFetchMovieEvent);
-    on<HomeMovieClickedEvent>(homeMovieClickedEvent);
   }
 
   FutureOr<void> homeInitFetchMovieEvent(
@@ -23,7 +22,4 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       emit(HomeMovieErrorState());
     }
   }
-
-  FutureOr<void> homeMovieClickedEvent(
-      HomeMovieClickedEvent event, Emitter<HomeState> emit) {}
 }

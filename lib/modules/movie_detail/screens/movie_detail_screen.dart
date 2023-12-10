@@ -5,15 +5,22 @@ import 'package:cineflix/responsive/responsive_layout.dart';
 import 'package:flutter/material.dart';
 
 class MovieDetailScreen extends StatelessWidget {
-  const MovieDetailScreen({super.key});
+  final String movieID;
+  const MovieDetailScreen({super.key, required this.movieID});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: ResponsiveLayout(
-          mobileBody: MovieDetailMobileBody(),
-          tabletBody: MovieDetailTabletBody(),
-          desktopBody: MovieDetailDesktopBody()),
+          mobileBody: MovieDetailMobileBody(
+            movieID: movieID,
+          ),
+          tabletBody: MovieDetailTabletBody(
+            movieID: movieID,
+          ),
+          desktopBody: MovieDetailDesktopBody(
+            movieID: movieID,
+          )),
     );
   }
 }

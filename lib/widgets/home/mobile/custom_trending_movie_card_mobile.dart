@@ -34,7 +34,7 @@ class _CustomTrendingMovieCardMobileState
         });
       },
       onTap: () {
-        context.go('/movie_detail');
+        context.go('/movie_detail/${widget.movieData.sId}');
       },
       child: Stack(
         children: [

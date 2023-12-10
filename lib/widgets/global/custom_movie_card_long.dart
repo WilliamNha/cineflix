@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class CustomMovieCardLong extends StatefulWidget {
+  final String movieID;
   final String name;
   final String image;
   final String type;
@@ -11,6 +12,7 @@ class CustomMovieCardLong extends StatefulWidget {
   final bool isHasCircleNumber;
   final int number;
   const CustomMovieCardLong({
+    required this.movieID,
     required this.name,
     required this.image,
     required this.type,
@@ -33,7 +35,7 @@ class _CustomMovieCardLongState extends State<CustomMovieCardLong> {
       highlightColor: Colors.transparent,
       splashColor: Colors.transparent,
       onTap: () {
-        context.go('/movie_detail');
+        context.go('/movie_detail/${widget.movieID}');
       },
       onHover: (isHovered) {
         setState(() {

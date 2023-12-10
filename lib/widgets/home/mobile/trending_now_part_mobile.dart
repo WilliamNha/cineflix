@@ -75,7 +75,7 @@ class _TrendingNowPartMobileState extends State<TrendingNowPartMobile> {
         Padding(
           padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
           child: StepProgressIndicator(
-            totalSteps: 4,
+            totalSteps: 5,
             currentStep: trendingSlideIndex,
             size: 4,
             padding: 0,

@@ -13,8 +13,10 @@ class AppRouter {
       builder: (context, state) => const HomeScreen(),
     ),
     GoRoute(
-      path: '/movie_detail',
-      builder: (context, state) => const MovieDetailScreen(),
+      path: '/movie_detail/:id',
+      builder: (context, state) => MovieDetailScreen(
+        movieID: state.pathParameters["id"].toString(),
+      ),
     ),
   ]);
 }

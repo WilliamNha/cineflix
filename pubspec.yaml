@@ -43,6 +43,8 @@ dependencies:
   bloc:
   flutter_bloc:
   http:
+  chewie:
+  video_player:
 
 dev_dependencies:
   flutter_test:

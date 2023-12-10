@@ -4,5 +4,3 @@ part of 'home_bloc.dart';
 class HomeEvent {}
 
 class HomeInitialFetchMovieEvent extends HomeEvent {}
-
-class HomeMovieClickedEvent extends HomeEvent {}

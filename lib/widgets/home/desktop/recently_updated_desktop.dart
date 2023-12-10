@@ -39,6 +39,7 @@ class RecentlyUpdatedDesktop extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: CustomMovieCardLong(
+              movieID: movieList[i].sId!,
               number: i + 1,
               duration: movieList[i].duration!,
               year: movieList[i].release!.split(",")[1].replaceAll(" ", ''),

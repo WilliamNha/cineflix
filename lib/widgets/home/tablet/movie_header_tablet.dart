@@ -199,7 +199,7 @@ class MovieHeadTablet extends StatelessWidget {
                       ),
                       CustomWatchNowButton(
                         onTap: () {
-                          context.go('/movie_detail');
+                          context.go('/movie_detail/${movieData.sId}');
                         },
                       ),
                       const CustomBookmarkButton(),

@@ -85,6 +85,7 @@ class _Top10PartTabletState extends State<Top10PartTablet> {
           Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: CustomMovieCardLong(
+              movieID: widget.movieList[index].sId!,
               name: widget.movieList[index].name!,
               type: widget.movieList[index].type!,
               image:
